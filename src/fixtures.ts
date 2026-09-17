@@ -16,7 +16,7 @@ export type SubjectFixture = {
 };
 
 /** Known committed JSON fixtures (do not import JSON at module load — breaks Vercel). */
-const FIXTURE_IDS = ["reading", "kokugo", "joho", "chiri-sougou"] as const;
+const FIXTURE_IDS = ["kokugo", "chiri-tankyu", "nihonshi-tankyu", "sekaishi-tankyu", "koukyo-rinri", "koukyo-seiji", "chiri-sougou", "rekishi-sougou", "koukyo", "butsuri-kiso", "kagaku-kiso", "seibutsu-kiso", "chigaku-kiso", "butsuri", "kagaku", "seibutsu", "chigaku", "reading", "listening", "joho"] as const;
 
 export function listFixtureIds(): string[] {
   return [...FIXTURE_IDS];
