@@ -23,6 +23,8 @@ export type ItemResult = {
   gold: string[];
   unordered: boolean;
   correct: boolean;
+  /** Official 配点 for this slot (hyphen siblings share; aggregate once per groupId). */
+  points: number;
   probability: number | undefined;
   confidence: number | undefined;
 };
@@ -32,12 +34,35 @@ export type SubjectResult = {
   items: ItemResult[];
   correct: number;
   total: number;
+  /** Earned points (配点), counting each groupId once. */
+  score: number;
+  /** Sum of 配点, counting each groupId once. */
+  maxScore: number;
   elapsedMs: number;
   inputTokens: number | undefined;
   outputTokens: number | undefined;
   tategaki: boolean;
   extraLabels: string[];
 };
+
+/** Aggregate official 配点 once per unordered/hyphen groupId. */
+export function aggregateScore(
+  seikai: SeikaiItem[],
+  items: ItemResult[],
+): { score: number; maxScore: number } {
+  const byKey = new Map(items.map((i) => [i.key, i]));
+  const seen = new Set<string>();
+  let score = 0;
+  let maxScore = 0;
+  for (const s of seikai) {
+    if (seen.has(s.groupId)) continue;
+    seen.add(s.groupId);
+    const pts = s.points ?? 0;
+    maxScore += pts;
+    if (byKey.get(s.key)?.correct) score += pts;
+  }
+  return { score, maxScore };
+}
 
 function criteriaOf(options: string[]): Record<string, string> {
   const out: Record<string, string> = {};
@@ -173,14 +198,18 @@ export function demoSolve(prepared: PreparedSubject): SubjectResult {
     gold: item.answers,
     unordered: item.unordered,
     correct: scoreItem(item, predicted, siblings),
+    points: item.points,
     probability: predicted && item.answers.includes(predicted) ? 0.91 : 0.42,
     confidence: undefined,
   }));
+  const { score, maxScore } = aggregateScore(prepared.seikai, items);
   return {
     subject: prepared.subject,
     items,
     correct: items.filter((i) => i.correct).length,
     total: items.length,
+    score,
+    maxScore,
     elapsedMs: 220 + prepared.seikai.length * 2.4,
     inputTokens: Math.round(prepared.examText.length * 0.4),
     outputTokens: prepared.seikai.length * 8,
@@ -249,6 +278,7 @@ export async function solveSubject(
     gold: item.answers,
     unordered: item.unordered,
     correct: scoreItem(item, predicted, siblings),
+    points: item.points,
     probability: predictedByKey.get(item.key)?.probability,
     confidence: undefined,
   }));
@@ -260,11 +290,14 @@ export async function solveSubject(
     );
   }
 
+  const { score, maxScore } = aggregateScore(prepared.seikai, items);
   return {
     subject: prepared.subject,
     items,
     correct: items.filter((i) => i.correct).length,
     total: items.length,
+    score,
+    maxScore,
     elapsedMs,
     inputTokens,
     outputTokens,
@@ -275,12 +308,13 @@ export async function solveSubject(
 
 export function formatTable(results: SubjectResult[]): string {
   const rows = results.map((r) => {
-    const pct = r.total === 0 ? "n/a" : `${((100 * r.correct) / r.total).toFixed(1)}%`;
+    const pct =
+      r.maxScore === 0 ? "n/a" : `${((100 * r.score) / r.maxScore).toFixed(1)}%`;
     const tokens = r.inputTokens ?? 0;
     const usd = ((tokens / 1_000_000) * 0.042).toFixed(5);
     return {
       科目: r.subject.name,
-      正答: `${r.correct}/${r.total}`,
+      得点: `${r.score}/${r.maxScore}`,
       率: pct,
       秒: (r.elapsedMs / 1000).toFixed(2),
       inTok: String(r.inputTokens ?? "-"),
@@ -293,14 +327,14 @@ export function formatTable(results: SubjectResult[]): string {
         .join(","),
     };
   });
-  const sumC = results.reduce((a, r) => a + r.correct, 0);
-  const sumT = results.reduce((a, r) => a + r.total, 0);
+  const sumS = results.reduce((a, r) => a + r.score, 0);
+  const sumM = results.reduce((a, r) => a + r.maxScore, 0);
   const sumMs = results.reduce((a, r) => a + r.elapsedMs, 0);
   const sumTok = results.reduce((a, r) => a + (r.inputTokens ?? 0), 0);
   rows.push({
     科目: "合計",
-    正答: `${sumC}/${sumT}`,
-    率: sumT === 0 ? "n/a" : `${((100 * sumC) / sumT).toFixed(1)}%`,
+    得点: `${sumS}/${sumM}`,
+    率: sumM === 0 ? "n/a" : `${((100 * sumS) / sumM).toFixed(1)}%`,
     秒: (sumMs / 1000).toFixed(2),
     inTok: String(sumTok),
     "$": ((sumTok / 1_000_000) * 0.042).toFixed(5),

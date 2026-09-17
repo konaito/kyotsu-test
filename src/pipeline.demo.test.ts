@@ -21,8 +21,11 @@ test("reading fixture → demoSolve → 採点テーブル（APIなし）", asyn
   expect(result.total).toBe(seikai.length);
   expect(result.items.length).toBe(seikai.length);
   expect(result.correct / result.total).toBeGreaterThan(0.5);
+  expect(result.maxScore).toBe(100);
+  expect(result.score).toBeGreaterThan(50);
   const table = formatTable([result]);
   expect(table).toContain("合計");
+  expect(table).toContain("得点");
   const misses = missList(result);
   expect(misses.length).toBeGreaterThan(0);
 });
