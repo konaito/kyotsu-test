@@ -1,11 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "bunVersion": "1.x",
   "buildCommand": "bun run build",
   "outputDirectory": "public",
   "functions": {
     "api/run.ts": { "maxDuration": 300, "includeFiles": "data/subjects/**" },
-    "api/subjects.ts": { "includeFiles": "data/subjects/**" }
+    "api/subjects.ts": { "maxDuration": 10 }
   }
 }
