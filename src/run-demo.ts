@@ -1,19 +1,13 @@
-export { listSubjects, subjectsResponse } from "./subjects-api.ts";
 import { findSubjects } from "./catalog.ts";
+import { demoSolve } from "./demo-solve.ts";
 import type { FilledDTO, PaperDTO } from "./dto.ts";
 import { hasFixture, listFixtureIds, prepareFromFixture } from "./fixtures.ts";
-import { demoSolve, solveSubject, type SubjectResult } from "./solve.ts";
 
-export function sse(event: string, data: unknown): string {
+function sse(event: string, data: unknown): string {
   return `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
 }
 
-export function toPaper(prepared: {
-  subject: { id: string; name: string; options: string[] };
-  seikai: Array<{ key: string; slot: string; daimon: string | null }>;
-  tategaki: boolean;
-  extraTexts: Array<{ label: string }>;
-}): PaperDTO {
+function toPaper(prepared: ReturnType<typeof prepareFromFixture>): PaperDTO {
   return {
     id: prepared.subject.id,
     name: prepared.subject.name,
@@ -28,7 +22,7 @@ export function toPaper(prepared: {
   };
 }
 
-export function toFilled(r: SubjectResult, demo: boolean): FilledDTO {
+function toFilled(r: ReturnType<typeof demoSolve>, demo: boolean): FilledDTO {
   return {
     id: r.subject.id,
     elapsedMs: r.elapsedMs,
@@ -48,11 +42,10 @@ export function toFilled(r: SubjectResult, demo: boolean): FilledDTO {
   };
 }
 
-/** SSE run using JSON fixtures only (Vercel / web). */
-export function runSseResponse(req: Request): Response {
+/** Demo-only SSE — no AI SDK import graph. */
+export function runDemoSse(req: Request): Response {
   const url = new URL(req.url);
   const ids = url.searchParams.get("subjects")?.split(",").filter(Boolean);
-  const demo = url.searchParams.get("demo") === "1";
   let subjects;
   try {
     subjects = findSubjects(ids);
@@ -62,69 +55,34 @@ export function runSseResponse(req: Request): Response {
       { status: 400 },
     );
   }
-
   const missing = subjects.filter((s) => !hasFixture(s.id));
   if (missing.length > 0) {
     return Response.json(
       {
-        error: `Web/Vercel 経路は JSON fixture 必須。未収録: ${missing
-          .map((m) => m.id)
-          .join(", ")}（収録: ${listFixtureIds().join(", ")}）`,
-      },
-      { status: 400 },
-    );
-  }
-
-  if (!demo && !process.env.AI_GATEWAY_API_KEY) {
-    return Response.json(
-      {
-        error:
-          "AI_GATEWAY_API_KEY が無い。デモは ?demo=1、本番は Vercel の環境変数にキーを設定。",
+        error: `JSON fixture 未収録: ${missing.map((m) => m.id).join(", ")}（収録: ${listFixtureIds().join(", ")}）`,
       },
       { status: 400 },
     );
   }
 
   const stream = new ReadableStream({
-    async start(controller) {
+    start(controller) {
       const enc = new TextEncoder();
       const send = (event: string, data: unknown) => {
         controller.enqueue(enc.encode(sse(event, data)));
       };
       try {
-        send("hello", { demo, count: subjects.length, source: "json-fixture" });
+        send("hello", { demo: true, count: subjects.length, source: "json-fixture" });
         for (const subject of subjects) {
-          send("status", {
-            phase: "extract",
-            id: subject.id,
-            name: subject.name,
-          });
+          send("status", { phase: "extract", id: subject.id, name: subject.name });
           const prepared = prepareFromFixture(subject);
           send("paper", toPaper(prepared));
-          send("status", {
-            phase: "solve",
-            id: subject.id,
-            name: subject.name,
-          });
-          if (demo) {
-            send("filled", toFilled(demoSolve(prepared), true));
-            continue;
-          }
-          try {
-            send("filled", toFilled(await solveSubject(prepared), false));
-          } catch (e) {
-            send("error", {
-              id: subject.id,
-              name: subject.name,
-              error: e instanceof Error ? e.message : String(e),
-            });
-          }
+          send("status", { phase: "solve", id: subject.id, name: subject.name });
+          send("filled", toFilled(demoSolve(prepared), true));
         }
         send("done", { ok: true });
       } catch (e) {
-        send("fatal", {
-          error: e instanceof Error ? e.message : String(e),
-        });
+        send("fatal", { error: e instanceof Error ? e.message : String(e) });
       } finally {
         controller.close();
       }
