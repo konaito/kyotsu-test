@@ -18,6 +18,7 @@ function preparedFixture(overrides?: Partial<PreparedSubject>): PreparedSubject 
       daimon: "第1問",
       slot: "1",
       answers: ["4"],
+      points: 2,
       unordered: false,
       groupId: "g1",
     },
@@ -26,6 +27,7 @@ function preparedFixture(overrides?: Partial<PreparedSubject>): PreparedSubject 
       daimon: "第1問",
       slot: "2",
       answers: ["1"],
+      points: 2,
       unordered: false,
       groupId: "g2",
     },
@@ -34,6 +36,7 @@ function preparedFixture(overrides?: Partial<PreparedSubject>): PreparedSubject 
       daimon: "第7問",
       slot: "30",
       answers: ["3", "4"],
+      points: 3,
       unordered: true,
       groupId: "g30",
     },
@@ -42,6 +45,7 @@ function preparedFixture(overrides?: Partial<PreparedSubject>): PreparedSubject 
       daimon: "第7問",
       slot: "31",
       answers: ["3", "4"],
+      points: 3,
       unordered: true,
       groupId: "g30",
     },
@@ -50,6 +54,7 @@ function preparedFixture(overrides?: Partial<PreparedSubject>): PreparedSubject 
       daimon: "第8問",
       slot: "44",
       answers: ["1"],
+      points: 4,
       unordered: false,
       groupId: "g44",
     },
@@ -88,6 +93,7 @@ test("demoSolve の約2割は意図的に誤答（hash % 5 === 0）", () => {
     daimon: "第1問",
     slot: String(i + 1),
     answers: ["1"],
+    points: 2,
     unordered: false,
     groupId: `g${i}`,
   }));
@@ -102,7 +108,8 @@ test("formatTable は科目行と合計行を含む", () => {
   const table = formatTable([r]);
   expect(table).toContain("英語（リーディング）");
   expect(table).toContain("合計");
-  expect(table).toContain(`${r.correct}/${r.total}`);
+  expect(table).toContain(`${r.score}/${r.maxScore}`);
+  expect(table).toContain("得点");
 });
 
 test("missList 全問一致と誤り一覧", () => {
@@ -110,6 +117,8 @@ test("missList 全問一致と誤り一覧", () => {
     ...demoSolve(preparedFixture()),
     items: demoSolve(preparedFixture()).items.map((i) => ({ ...i, correct: true })),
     correct: 5,
+    score: 11,
+    maxScore: 11,
   };
   expect(missList(perfect)).toContain("全問一致");
 
@@ -122,15 +131,26 @@ test("missList 全問一致と誤り一覧", () => {
         gold: ["4"],
         unordered: false,
         correct: false,
+        points: 2,
         probability: 0.4,
         confidence: undefined,
       },
     ],
     correct: 0,
     total: 1,
+    score: 0,
+    maxScore: 2,
   };
   const miss = missList(withMiss);
   expect(miss).toContain("誤り 1件");
   expect(miss).toContain("pred=2");
   expect(miss).toContain("gold=4");
+});
+
+test("unordered groupId の配点は1回だけ数える", () => {
+  const p = preparedFixture();
+  const r = demoSolve(p);
+  // g30 is 3 points once even though two slots
+  expect(r.maxScore).toBe(2 + 2 + 3 + 4);
+  expect(r.score).toBeLessThanOrEqual(r.maxScore);
 });

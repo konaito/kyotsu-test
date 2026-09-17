@@ -3,6 +3,8 @@ export type SeikaiItem = {
   daimon: string | null;
   slot: string;
   answers: string[];
+  /** Official 配点 for this row. Hyphen siblings share the same value; aggregate once per groupId. */
+  points: number;
   unordered: boolean;
   groupId: string;
 };
@@ -78,6 +80,9 @@ const SLOT_TOKEN =
 const ANSWER_TOKEN =
   /^(?:[0-9０-９]{1,2}(?:[，,、・．\.][0-9０-９]{1,2})*(?:[－−―\-][0-9０-９]{1,2}(?:[，,、・．\.][0-9０-９]{1,2})*)?)$/;
 
+/** Per-item 配点 digits (ignore "(配点)", "(Ｎ)", section totals, "＊"). */
+const POINTS_TOKEN = /^[0-9０-９]{1,2}$/;
+
 function splitList(raw: string): string[] {
   const half = toHalfWidth(raw);
   return half
@@ -114,18 +119,68 @@ function pagePlain(page: Page): string {
   return collapse(page.words.map((w) => w.text).join(""));
 }
 
-function findHeaders(page: Page): Array<{ idX: number; seiX: number; y: number }> {
+function findHeaders(
+  page: Page,
+): Array<{ idX: number; seiX: number; haiX: number; y: number }> {
   const idHeaders = page.words.filter(
     (w) => w.text === "解答番号" || w.text === "解答記号",
   );
   const seiMarks = page.words.filter((w) => w.text === "正");
-  const out: Array<{ idX: number; seiX: number; y: number }> = [];
+  const haiMarks = page.words.filter((w) => w.text === "配");
+  const out: Array<{ idX: number; seiX: number; haiX: number; y: number }> = [];
   for (const h of idHeaders) {
     const sei = seiMarks
       .filter((s) => s.x > h.x && near(s.y, h.y, 10))
       .sort((a, b) => a.x - b.x)[0];
     if (!sei) continue;
-    out.push({ idX: h.x, seiX: sei.x, y: h.y });
+    const hai = haiMarks
+      .filter((s) => s.x > sei.x && near(s.y, h.y, 10))
+      .sort((a, b) => a.x - b.x)[0];
+    if (!hai) continue;
+    out.push({ idX: h.x, seiX: sei.x, haiX: hai.x, y: h.y });
+  }
+  return out;
+}
+
+function parsePointsCell(raw: string): number {
+  const n = Number(toHalfWidth(raw));
+  if (!Number.isFinite(n) || n < 0) {
+    throw new Error(`配点を数値にできない: ${raw}`);
+  }
+  return n;
+}
+
+/**
+ * Assign each 配点 cell to at most one answer-number row (nearest by y).
+ * Rows with no exclusive cell get 0 — typical for ＊ shared awards where the
+ * points sit on one row of a multi-slot set. Hyphen groups still copy points
+ * onto every sibling; scoring aggregates once per groupId.
+ */
+function assignPoints(
+  rows: Word[],
+  pointWords: Word[],
+  haiX: number,
+  tol = 10,
+): Map<Word, number> {
+  type Pair = { d: number; dx: number; pt: Word; row: Word; value: number };
+  const pairs: Pair[] = [];
+  for (const pt of pointWords) {
+    const value = parsePointsCell(pt.text);
+    for (const row of rows) {
+      const d = Math.abs(row.y - pt.y);
+      if (d > tol) continue;
+      pairs.push({ d, dx: Math.abs(pt.x - haiX), pt, row, value });
+    }
+  }
+  pairs.sort((a, b) => a.d - b.d || a.dx - b.dx);
+  const usedPt = new Set<Word>();
+  const usedRow = new Set<Word>();
+  const out = new Map<Word, number>();
+  for (const p of pairs) {
+    if (usedPt.has(p.pt) || usedRow.has(p.row)) continue;
+    usedPt.add(p.pt);
+    usedRow.add(p.row);
+    out.set(p.row, p.value);
   }
   return out;
 }
@@ -209,6 +264,8 @@ function parsePage(page: Page): SeikaiItem[] {
     const idMax = header.seiX - 12;
     const seiMin = header.seiX - 8;
     const seiMax = header.seiX + 45;
+    const haiMin = header.haiX - 8;
+    const haiMax = header.haiX + 40;
     const idWords = page.words.filter(
       (w) =>
         w.y > header.y + 14 &&
@@ -223,7 +280,19 @@ function parsePage(page: Page): SeikaiItem[] {
         w.x <= seiMax &&
         ANSWER_TOKEN.test(w.text),
     );
+    const pointWords = page.words.filter(
+      (w) =>
+        w.y > header.y + 14 &&
+        w.x >= haiMin &&
+        w.x <= haiMax &&
+        POINTS_TOKEN.test(w.text),
+    );
 
+    const matchedRows: Word[] = [];
+    const rowMeta = new Map<
+      Word,
+      { slots: string[]; answers: string[]; unordered: boolean }
+    >();
     for (const idWord of idWords) {
       const ansWord = answerWords
         .filter((a) => near(a.y, idWord.y, 8))
@@ -236,20 +305,33 @@ function parsePage(page: Page): SeikaiItem[] {
       const slots = parseSlotCell(idWord.text);
       const parsed = parseAnswerCell(ansWord.text);
       if (slots.length === 0 || parsed.answers.length === 0) continue;
-      const unordered = parsed.unordered || slots.length > 1;
+      matchedRows.push(idWord);
+      rowMeta.set(idWord, {
+        slots,
+        answers: parsed.answers,
+        unordered: parsed.unordered || slots.length > 1,
+      });
+    }
+
+    const pointsByRow = assignPoints(matchedRows, pointWords, header.haiX);
+
+    for (const idWord of matchedRows) {
+      const meta = rowMeta.get(idWord)!;
+      const points = pointsByRow.get(idWord) ?? 0;
       const groupId = `g:${idWord.text}:${idWord.x.toFixed(1)}:${idWord.y.toFixed(1)}`;
-      for (let i = 0; i < slots.length; i++) {
-        const slot = slots[i]!;
+      for (let i = 0; i < meta.slots.length; i++) {
+        const slot = meta.slots[i]!;
         const answers =
-          slots.length === parsed.answers.length && !parsed.unordered
-            ? [parsed.answers[i]!]
-            : parsed.answers;
+          meta.slots.length === meta.answers.length && !meta.unordered
+            ? [meta.answers[i]!]
+            : meta.answers;
         drafts.push({
           key: slot,
           daimon: null,
           slot,
           answers,
-          unordered,
+          points,
+          unordered: meta.unordered,
           groupId,
           x: idWord.x,
           y: idWord.y,
@@ -268,6 +350,7 @@ function parsePage(page: Page): SeikaiItem[] {
       daimon: d.daimon,
       slot: d.slot,
       answers: d.answers,
+      points: d.points,
       unordered: d.unordered,
       groupId: d.groupId,
     });

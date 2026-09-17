@@ -19,6 +19,7 @@ export type MarkDTO = {
   gold: string[];
   unordered: boolean;
   correct: boolean;
+  points: number;
   probability: number | undefined;
 };
 
@@ -28,9 +29,13 @@ export type FilledDTO = {
   inputTokens: number | undefined;
   items: MarkDTO[];
   demo: boolean;
+  score: number;
+  maxScore: number;
 };
 
 export type SubjectInfo = {
   id: string;
   name: string;
+  /** True when committed JSON fixture is available for the web path. */
+  hasFixture: boolean;
 };

@@ -15,6 +15,8 @@ test("PaperDTO / FilledDTO の形を満たすオブジェクトを組み立て�
     elapsedMs: 12.5,
     inputTokens: 100,
     demo: true,
+    score: 2,
+    maxScore: 2,
     items: [
       {
         key: "第1問:1",
@@ -22,6 +24,7 @@ test("PaperDTO / FilledDTO の形を満たすオブジェクトを組み立て�
         gold: ["4"],
         unordered: false,
         correct: true,
+        points: 2,
         probability: 0.9,
       },
     ],

@@ -76,6 +76,7 @@ test("scoreItem 通常は answers に含まれれば正", () => {
     daimon: "第1問",
     slot: "1",
     answers: ["3"],
+    points: 2,
     unordered: false,
     groupId: "g1",
   };
@@ -91,6 +92,7 @@ test("scoreItem 順不同は group 全体の集合一致", () => {
     daimon: "第7問",
     slot: "30",
     answers: ["3", "4"],
+    points: 3,
     unordered: true,
     groupId: "g:30-31",
   };
@@ -99,6 +101,7 @@ test("scoreItem 順不同は group 全体の集合一致", () => {
     daimon: "第7問",
     slot: "31",
     answers: ["3", "4"],
+    points: 3,
     unordered: true,
     groupId: "g:30-31",
   };
@@ -113,4 +116,43 @@ test("scoreItem 順不同は group 全体の集合一致", () => {
     { item: b, predicted: "3" },
   ];
   expect(scoreItem(a, "3", ng)).toBe(false);
+});
+
+test("英語R 配点合計は100（groupIdごと1回）", async () => {
+  const items = parseSeikaiBbox(await load("reading.xml"));
+  const seen = new Set<string>();
+  let max = 0;
+  for (const i of items) {
+    if (seen.has(i.groupId)) continue;
+    seen.add(i.groupId);
+    max += i.points;
+  }
+  expect(max).toBe(100);
+  expect(items.find((i) => i.slot === "1")?.points).toBe(2);
+  expect(items.find((i) => i.slot === "30")?.points).toBe(3);
+  expect(items.find((i) => i.slot === "31")?.points).toBe(3);
+});
+
+test("国語 配点合計は200", async () => {
+  const items = parseSeikaiBbox(await load("kokugo.xml"));
+  const seen = new Set<string>();
+  let max = 0;
+  for (const i of items) {
+    if (seen.has(i.groupId)) continue;
+    seen.add(i.groupId);
+    max += i.points;
+  }
+  expect(max).toBe(200);
+});
+
+test("情報I 配点合計は100", async () => {
+  const items = parseSeikaiBbox(await load("joho.xml"));
+  const seen = new Set<string>();
+  let max = 0;
+  for (const i of items) {
+    if (seen.has(i.groupId)) continue;
+    seen.add(i.groupId);
+    max += i.points;
+  }
+  expect(max).toBe(100);
 });

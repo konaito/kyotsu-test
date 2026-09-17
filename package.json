@@ -7,7 +7,8 @@
     "solve": "bun run src/cli.ts",
     "extract": "bun run src/cli.ts --dry-run",
     "web": "bun run src/server.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "build": "bun build ./web/index.html --outdir=public --minify"
   },
   "devDependencies": {
     "@types/bun": "latest"

@@ -1,4 +1,4 @@
-type SubjectInfo = { id: string; name: string };
+type SubjectInfo = { id: string; name: string; hasFixture?: boolean };
 type SlotDTO = { key: string; slot: string; daimon: string | null };
 type PaperDTO = {
   id: string;
@@ -14,6 +14,7 @@ type MarkDTO = {
   gold: string[];
   unordered: boolean;
   correct: boolean;
+  points: number;
   probability: number | undefined;
 };
 type FilledDTO = {
@@ -22,6 +23,8 @@ type FilledDTO = {
   inputTokens: number | undefined;
   items: MarkDTO[];
   demo: boolean;
+  score: number;
+  maxScore: number;
 };
 
 const $ = <T extends HTMLElement>(id: string) => {
@@ -184,19 +187,18 @@ async function grade(paperEl: HTMLElement, filled: FilledDTO) {
 
 function addBoardRow(name: string, filled: FilledDTO) {
   const tr = document.createElement("tr");
-  const ok = filled.items.filter((i) => i.correct).length;
-  tr.innerHTML = `<td>${name}</td><td>${ok}/${filled.items.length}</td><td>${(filled.elapsedMs / 1000).toFixed(2)}s</td>`;
+  tr.innerHTML = `<td>${name}</td><td>${filled.score}/${filled.maxScore}</td><td>${(filled.elapsedMs / 1000).toFixed(2)}s</td>`;
   boardBody.append(tr);
-  let c = 0;
-  let t = 0;
+  let score = 0;
+  let maxScore = 0;
   let ms = 0;
   for (const row of boardBody.querySelectorAll("tr")) {
     const [num, den] = (row.children[1]?.textContent ?? "0/0").split("/").map(Number);
-    c += num ?? 0;
-    t += den ?? 0;
+    score += num ?? 0;
+    maxScore += den ?? 0;
     ms += parseFloat(row.children[2]?.textContent ?? "0") * 1000;
   }
-  $("board-total").textContent = `${c}/${t}`;
+  $("board-total").textContent = `${score}/${maxScore}`;
   $("board-time").textContent = `${(ms / 1000).toFixed(2)}s`;
   board.hidden = false;
 }
