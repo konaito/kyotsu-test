@@ -79,7 +79,7 @@ export function runSseResponse(req: Request): Response {
     return Response.json(
       {
         error:
-          "AI_GATEWAY_API_KEY が無い。デモは ?demo=1、本番は Vercel の環境変数にキーを設定。",
+          "AI_GATEWAY_API_KEY が無い。デモにチェックするか、Vercel に AI_GATEWAY_API_KEY を設定してください。",
       },
       { status: 400 },
     );

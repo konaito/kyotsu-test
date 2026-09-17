@@ -47,6 +47,7 @@ const ticketError = $("ticket-error");
 
 let clockRaf = 0;
 let clockOrigin = 0;
+let runAbort: AbortController | null = null;
 
 function formatClock(ms: number): string {
   const t = Math.max(0, ms);
@@ -70,8 +71,34 @@ function stopClock() {
   cancelAnimationFrame(clockRaf);
 }
 
+function unlockControls() {
+  btnStart.disabled = false;
+  $("btn-all").disabled = false;
+}
+
+function showFatal(message: string) {
+  stopClock();
+  unlockControls();
+  phaseEl.textContent = "中断。";
+  ticket.hidden = false;
+  stage.hidden = false;
+  ticketError.hidden = false;
+  ticketError.textContent = message;
+  $("btn-again").hidden = false;
+}
+
+function humanizeApiError(raw: string): string {
+  if (/AI_GATEWAY_API_KEY/.test(raw)) {
+    return "ライブ解答には AI_GATEWAY_API_KEY が必要です。デモにチェックするか、Vercel に AI_GATEWAY_API_KEY を設定してください。";
+  }
+  return raw;
+}
+
 async function loadSubjects() {
   const res = await fetch("/api/subjects");
+  if (!res.ok) {
+    throw new Error(`科目一覧の取得に失敗: HTTP ${res.status}`);
+  }
   const list = (await res.json()) as SubjectInfo[];
   subjectGrid.replaceChildren();
   for (const s of list) {
@@ -79,21 +106,32 @@ async function loadSubjects() {
     const input = document.createElement("input");
     input.type = "checkbox";
     input.value = s.id;
-    input.checked = s.id === "reading";
-    lab.append(input, document.createTextNode(s.name));
+    const ok = s.hasFixture !== false;
+    input.disabled = !ok;
+    // Default: reading only (fixture). Other fixture subjects stay unchecked.
+    input.checked = ok && s.id === "reading";
+    if (!ok) {
+      lab.classList.add("no-fixture");
+      lab.title = "JSON fixture 未収録（Web 経路では選べません）";
+      lab.append(input, document.createTextNode(`${s.name}（未収録）`));
+    } else {
+      lab.append(input, document.createTextNode(s.name));
+    }
     subjectGrid.append(lab);
   }
 }
 
 function selectedIds(): string[] {
-  return [...subjectGrid.querySelectorAll("input:checked")].map(
+  return [...subjectGrid.querySelectorAll("input:checked:not(:disabled)")].map(
     (el) => (el as HTMLInputElement).value,
   );
 }
 
 function setAllChecked(on: boolean) {
   for (const el of subjectGrid.querySelectorAll("input[type=checkbox]")) {
-    (el as HTMLInputElement).checked = on;
+    const input = el as HTMLInputElement;
+    if (input.disabled) continue;
+    input.checked = on;
   }
 }
 
@@ -203,11 +241,48 @@ function addBoardRow(name: string, filled: FilledDTO) {
   board.hidden = false;
 }
 
-function run() {
+/** Parse one SSE block: event + data lines. */
+function parseSseBlock(block: string): { event: string; data: string } | null {
+  let event = "message";
+  const dataLines: string[] = [];
+  for (const line of block.split("\n")) {
+    if (line.startsWith("event:")) event = line.slice(6).trim();
+    else if (line.startsWith("data:")) dataLines.push(line.slice(5).trimStart());
+  }
+  if (dataLines.length === 0) return null;
+  return { event, data: dataLines.join("\n") };
+}
+
+async function consumeSse(
+  body: ReadableStream<Uint8Array>,
+  onEvent: (event: string, data: string) => void | Promise<void>,
+) {
+  const reader = body.getReader();
+  const dec = new TextDecoder();
+  let buf = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let sep: number;
+    while ((sep = buf.indexOf("\n\n")) >= 0) {
+      const block = buf.slice(0, sep);
+      buf = buf.slice(sep + 2);
+      const parsed = parseSseBlock(block);
+      if (parsed) await onEvent(parsed.event, parsed.data);
+    }
+  }
+  if (buf.trim()) {
+    const parsed = parseSseBlock(buf);
+    if (parsed) await onEvent(parsed.event, parsed.data);
+  }
+}
+
+async function run() {
   const ids = selectedIds();
   if (ids.length === 0) {
     ticketError.hidden = false;
-    ticketError.textContent = "科目を一つは選べ。";
+    ticketError.textContent = "科目を一つは選べ（fixture 収録科目のみ）。";
     return;
   }
   ticketError.hidden = true;
@@ -223,88 +298,105 @@ function run() {
   phaseEl.textContent = "問題冊子を開く。";
 
   const demo = demoBox.checked || new URLSearchParams(location.search).has("demo");
-  const es = new EventSource(
-    `/api/run?subjects=${encodeURIComponent(ids.join(","))}${demo ? "&demo=1" : ""}`,
-  );
+  const url = `/api/run?subjects=${encodeURIComponent(ids.join(","))}${demo ? "&demo=1" : ""}`;
 
+  runAbort?.abort();
+  runAbort = new AbortController();
   const papersById = new Map<string, { el: HTMLElement; paper: PaperDTO }>();
   const pendingFill = new Map<string, Promise<void>>();
+  let finished = false;
 
-  es.addEventListener("status", (ev) => {
-    const d = JSON.parse((ev as MessageEvent).data) as {
-      phase: string;
-      name: string;
-    };
-    phaseEl.textContent =
-      d.phase === "extract" ? `${d.name}　問題冊子を開く。` : `${d.name}　解答中。`;
-  });
-
-  es.addEventListener("paper", (ev) => {
-    const paper = JSON.parse((ev as MessageEvent).data) as PaperDTO;
-    const el = renderPaper(paper);
-    papersById.set(paper.id, { el, paper });
-  });
-
-  es.addEventListener("filled", (ev) => {
-    const filled = JSON.parse((ev as MessageEvent).data) as FilledDTO;
-    const rec = papersById.get(filled.id);
-    if (!rec) return;
-    const p = (async () => {
-      phaseEl.textContent = `${rec.paper.name}　実測 ${(filled.elapsedMs / 1000).toFixed(2)} 秒。`;
-      await playFill(rec.el, filled);
-      await sleep(500);
-      await grade(rec.el, filled);
-      addBoardRow(rec.paper.name, filled);
-    })();
-    pendingFill.set(filled.id, p);
-  });
-
-  es.addEventListener("error", (ev) => {
-    const d = JSON.parse((ev as MessageEvent).data) as {
-      id: string;
-      name: string;
-      error: string;
-    };
-    const rec = papersById.get(d.id);
-    if (rec) {
-      const banner = rec.el.querySelector("[data-err]") as HTMLElement | null;
-      if (banner) {
-        banner.hidden = false;
-        banner.textContent = d.error;
-      }
-    } else {
-      ticketError.hidden = false;
-      ticketError.textContent = `${d.name}: ${d.error}`;
+  const onEvent = async (event: string, raw: string) => {
+    if (event === "status") {
+      const d = JSON.parse(raw) as { phase: string; name: string };
+      phaseEl.textContent =
+        d.phase === "extract" ? `${d.name}　問題冊子を開く。` : `${d.name}　解答中。`;
+      return;
     }
-    phaseEl.textContent = "中断。";
-  });
-
-  es.addEventListener("fatal", (ev) => {
-    const d = JSON.parse((ev as MessageEvent).data) as { error: string };
-    phaseEl.textContent = "中断。";
-    ticket.hidden = false;
-    ticketError.hidden = false;
-    ticketError.textContent = d.error;
-  });
-
-  es.addEventListener("done", async () => {
-    es.close();
-    await Promise.all(pendingFill.values());
-    stopClock();
-    phaseEl.textContent = "やめ。";
-    btnStart.disabled = false;
-    $("btn-all").disabled = false;
-    $("btn-again").hidden = false;
-  });
-
-  es.onerror = () => {
-    if (es.readyState === EventSource.CLOSED) return;
-    phaseEl.textContent = "接続が切れた。";
-    es.close();
-    stopClock();
-    btnStart.disabled = false;
-    $("btn-all").disabled = false;
+    if (event === "paper") {
+      const paper = JSON.parse(raw) as PaperDTO;
+      const el = renderPaper(paper);
+      papersById.set(paper.id, { el, paper });
+      return;
+    }
+    if (event === "filled") {
+      const filled = JSON.parse(raw) as FilledDTO;
+      const rec = papersById.get(filled.id);
+      if (!rec) return;
+      const p = (async () => {
+        phaseEl.textContent = `${rec.paper.name}　実測 ${(filled.elapsedMs / 1000).toFixed(2)} 秒。`;
+        await playFill(rec.el, filled);
+        await sleep(500);
+        await grade(rec.el, filled);
+        addBoardRow(rec.paper.name, filled);
+      })();
+      pendingFill.set(filled.id, p);
+      return;
+    }
+    if (event === "error") {
+      const d = JSON.parse(raw) as { id?: string; name?: string; error: string };
+      const msg = humanizeApiError(d.error);
+      const rec = d.id ? papersById.get(d.id) : undefined;
+      if (rec) {
+        const banner = rec.el.querySelector("[data-err]") as HTMLElement | null;
+        if (banner) {
+          banner.hidden = false;
+          banner.textContent = msg;
+        }
+      } else {
+        ticketError.hidden = false;
+        ticketError.textContent = d.name ? `${d.name}: ${msg}` : msg;
+      }
+      phaseEl.textContent = "中断。";
+      return;
+    }
+    if (event === "fatal") {
+      const d = JSON.parse(raw) as { error: string };
+      showFatal(humanizeApiError(d.error));
+      finished = true;
+      return;
+    }
+    if (event === "done") {
+      finished = true;
+      await Promise.all(pendingFill.values());
+      stopClock();
+      phaseEl.textContent = "やめ。";
+      unlockControls();
+      $("btn-again").hidden = false;
+    }
   };
+
+  try {
+    const res = await fetch(url, {
+      signal: runAbort.signal,
+      headers: { Accept: "text/event-stream" },
+    });
+    const ctype = res.headers.get("content-type") ?? "";
+    if (!res.ok || !ctype.includes("text/event-stream")) {
+      let msg = `HTTP ${res.status}`;
+      const t = await res.text();
+      try {
+        const j = JSON.parse(t) as { error?: string };
+        if (j.error) msg = humanizeApiError(j.error);
+        else if (t) msg = humanizeApiError(t.slice(0, 400));
+      } catch {
+        if (t) msg = humanizeApiError(t.slice(0, 400));
+      }
+      showFatal(msg);
+      return;
+    }
+    if (!res.body) {
+      showFatal("応答ボディが空です。");
+      return;
+    }
+    await consumeSse(res.body, onEvent);
+    if (!finished) {
+      showFatal("ストリームが途中で切れました。");
+    }
+  } catch (e) {
+    if (e instanceof DOMException && e.name === "AbortError") return;
+    showFatal(e instanceof Error ? e.message : String(e));
+  }
 }
 
 $("btn-again").addEventListener("click", () => {
@@ -314,9 +406,9 @@ $("btn-again").addEventListener("click", () => {
 $("btn-check-all").addEventListener("click", () => setAllChecked(true));
 $("btn-all").addEventListener("click", () => {
   setAllChecked(true);
-  run();
+  void run();
 });
-btnStart.addEventListener("click", run);
+btnStart.addEventListener("click", () => void run());
 if (new URLSearchParams(location.search).has("demo")) demoBox.checked = true;
 loadSubjects().catch((e) => {
   ticketError.hidden = false;
