@@ -30,7 +30,7 @@ bun run build               # web → public/（Vercel 用）
 - デモ: `?demo=1` または UI のデモチェック
 - 非デモ: Vercel プロジェクトに `AI_GATEWAY_API_KEY` を設定
 
-収録済み fixture: `reading`, `kokugo`, `joho`, `chiri-sougou`
+収録済み fixture: catalog 全科目（数学以外） — `data/subjects/*.json`
 
 ## ローカル CLI
 
