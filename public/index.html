@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>令和7年度 本試験 解答用紙</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@500;700&family=Share+Tech+Mono&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    
+  <link rel="stylesheet" crossorigin href="./index-h22aj89d.css"><script type="module" crossorigin src="./index-h0mjysee.js"></script></head>
+  <body>
+    <div class="desk">
+      <header class="mast">
+        <p class="mast-kicker">独立行政法人 大学入試センター　／　jev 受験</p>
+        <h1>令和七年度　大学入学共通テスト</h1>
+        <p class="mast-sub">本試験　解答用紙<span class="slash">／</span>数学を除く</p>
+      </header>
+
+      <section id="ticket" class="ticket">
+        <div class="ticket-head">
+          <span>受験票</span>
+          <span class="exam-no">受験番号　<span>J E V</span></span>
+        </div>
+        <p class="ticket-note">
+          解答始めの合図で、マーク欄が埋まる。速さは実測。再生は目で追える速度にしてある。
+          終わりに朱で自己採点する。
+        </p>
+        <div id="subject-grid" class="subject-grid"></div>
+        <div class="ticket-actions">
+          <button type="button" id="btn-start" class="btn-start">解答始め</button>
+          <button type="button" id="btn-all" class="btn-all">全科目で始める</button>
+          <button type="button" id="btn-check-all" class="btn-again">全選択</button>
+          <label class="demo-toggle">
+            <input type="checkbox" id="demo" />
+            デモ（jevを叩かない）
+          </label>
+        </div>
+        <p id="ticket-error" class="ticket-error" hidden></p>
+      </section>
+
+      <section id="stage" class="stage" hidden>
+        <div class="stage-bar">
+          <div class="phase" id="phase">静粛に。</div>
+          <div class="clock">
+            <span class="clock-label">経過</span>
+            <span id="clock" class="clock-num">00:00.00</span>
+          </div>
+        </div>
+        <div id="papers" class="papers"></div>
+        <aside id="board" class="board" hidden>
+          <h2>自己採点</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>科目</th>
+                <th>得点</th>
+                <th>実測</th>
+              </tr>
+            </thead>
+            <tbody id="board-body"></tbody>
+            <tfoot>
+              <tr>
+                <th>計</th>
+                <td id="board-total">—</td>
+                <td id="board-time">—</td>
+              </tr>
+            </tfoot>
+          </table>
+          <p class="board-foot">
+            図表は文字になった範囲だけ。リスニングは公式スクリプト。
+          </p>
+          <button type="button" id="btn-again" class="btn-again" hidden>受験票に戻る</button>
+        </aside>
+      </section>
+    </div>
+    
+  </body>
+</html>

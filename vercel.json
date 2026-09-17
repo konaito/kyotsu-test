@@ -1,15 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "bunVersion": "1.x",
+  "framework": null,
   "buildCommand": "bun run build",
   "outputDirectory": "public",
   "functions": {
-    "api/run.ts": {
-      "maxDuration": 300,
-      "includeFiles": "data/**"
-    },
-    "api/subjects.ts": {
-      "includeFiles": "data/**"
-    }
-  }
+    "api/run.ts": { "maxDuration": 300, "includeFiles": "data/**" },
+    "api/subjects.ts": { "includeFiles": "data/**" }
+  },
+  "rewrites": [
+    { "source": "/api/subjects", "destination": "/api/subjects" },
+    { "source": "/api/run", "destination": "/api/run" }
+  ]
 }
