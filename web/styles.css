@@ -147,6 +147,11 @@ body {
   border-right: 0;
 }
 
+.subject-grid label.no-fixture {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .subject-grid input {
   accent-color: var(--print);
 }
