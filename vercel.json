@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "bunVersion": "1.x",
   "buildCommand": "bun run build",
   "outputDirectory": "public",
@@ -10,9 +11,5 @@
     "api/subjects.ts": {
       "includeFiles": "data/**"
     }
-  },
-  "rewrites": [
-    { "source": "/api/subjects", "destination": "/api/subjects" },
-    { "source": "/api/run", "destination": "/api/run" }
-  ]
+  }
 }
