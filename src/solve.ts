@@ -1,5 +1,3 @@
-import { gateway } from "@ai-sdk/gateway";
-import { experimental_evaluate as evaluate } from "ai";
 import type { PreparedSubject } from "./extract.ts";
 import {
   normalizeExamText,
@@ -114,6 +112,8 @@ function questionFor(
 }
 
 export async function pingJev(): Promise<void> {
+  const { gateway } = await import("@ai-sdk/gateway");
+  const { experimental_evaluate: evaluate } = await import("ai");
   const result = await evaluate({
     model: gateway.evaluationModel(MODEL_ID),
     state: "The support agent issued a full refund to the customer.",
@@ -137,6 +137,8 @@ export async function solveSubject(
   if (chunks.length === 0) {
     throw new Error(`${prepared.subject.name}: 大問に分割できなかった`);
   }
+  const { gateway } = await import("@ai-sdk/gateway");
+  const { experimental_evaluate: evaluate } = await import("ai");
   const started = performance.now();
   const chunkOut = await Promise.all(
     chunks.map(async (chunk) => {

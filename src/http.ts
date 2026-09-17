@@ -2,7 +2,8 @@ export { listSubjects, subjectsResponse } from "./subjects-api.ts";
 import { findSubjects } from "./catalog.ts";
 import type { FilledDTO, PaperDTO } from "./dto.ts";
 import { hasFixture, listFixtureIds, prepareFromFixture } from "./fixtures.ts";
-import { demoSolve, solveSubject, type SubjectResult } from "./solve.ts";
+import { demoSolve, type SubjectResult } from "./demo-solve.ts";
+import { solveSubject } from "./solve.ts";
 
 export function sse(event: string, data: unknown): string {
   return `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
