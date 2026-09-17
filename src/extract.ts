@@ -43,7 +43,7 @@ export async function downloadFile(file: DncFile): Promise<string> {
   return dest;
 }
 
-function reconstructTategaki(raw: string): string {
+export function reconstructTategaki(raw: string): string {
   const lines = raw.split(/\r?\n/);
   const out: string[] = [];
   let buf: string[] = [];
@@ -66,7 +66,7 @@ function reconstructTategaki(raw: string): string {
   return out.join("\n");
 }
 
-function isTategaki(raw: string): boolean {
+export function isTategaki(raw: string): boolean {
   const lines = raw.split(/\r?\n/).filter((l) => l.trim().length > 0);
   if (lines.length < 50) return false;
   const short = lines.filter((l) => l.trim().length <= 2).length;

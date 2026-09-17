@@ -10,7 +10,10 @@ bun install
 bun run web                 # http://localhost:8787
 bun run src/cli.ts --subject reading
 bun run src/cli.ts --dry-run
+bun test
 ```
+
+`bun test` はネットワークと AI Gateway を使わない（正解PDFの bbox fixture + `demoSolve`）。
 
 Webは解答用紙にマークが埋まって、最後に朱で自己採点する。jevが使えないときは `?demo=1`。
 
