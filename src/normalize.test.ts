@@ -1,8 +1,10 @@
 import { expect, test } from "bun:test";
 import {
+  normalizeDaimonLabel,
   normalizeExamText,
   parseChoices,
   splitPassages,
+  toHalfWidthDigits,
 } from "./normalize.ts";
 
 test("行頭の ! \" # $ を [1][2][3][4] にする", () => {
@@ -57,4 +59,33 @@ test("問ブロックから解答番号と選択肢を取る", () => {
   expect(qs[0]?.options["4"]).toContain("newcomers");
   expect(qs[1]?.slot).toBe("2");
   expect(Object.keys(qs[1]!.options)).toEqual(["1", "2", "3", "4"]);
+});
+
+test("toHalfWidthDigits と normalizeDaimonLabel", () => {
+  expect(toHalfWidthDigits("１２３")).toBe("123");
+  expect(normalizeDaimonLabel("第１問")).toBe("第1問");
+  expect(normalizeDaimonLabel("第二問")).toBe("第2問");
+  expect(normalizeDaimonLabel("まえおき")).toBe("まえおき");
+});
+
+test("splitPassages: 大問が無ければ全体", () => {
+  const p = splitPassages("ただの本文だけ");
+  expect(p).toEqual([{ label: "全体", text: "ただの本文だけ" }]);
+});
+
+test("parseChoices: 選択肢が足りなければ空", () => {
+  expect(parseChoices("問 1 only one\n    [1]  alone")).toEqual([]);
+});
+
+test("parseChoices: カタカナ記号スロット", () => {
+  const section = `第1問
+ア 次の文
+    [1]  foo
+    [2]  bar
+    [3]  baz
+`;
+  const qs = parseChoices(section);
+  const a = qs.find((q) => q.slot === "ア");
+  expect(a?.options["1"]).toContain("foo");
+  expect(Object.keys(a!.options).length).toBe(3);
 });
