@@ -1,6 +1,6 @@
 {
   "name": "kousoku-kyotsu-test",
-  "module": "src/cli.ts",
+  "module": "src/dev-server.ts",
   "type": "module",
   "private": true,
   "scripts": {
