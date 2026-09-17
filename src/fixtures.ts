@@ -1,11 +1,8 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { findSubjects, type Subject } from "./catalog.ts";
 import type { PreparedSubject } from "./extract.ts";
 import type { SeikaiItem } from "./seikai.ts";
-
-import reading from "../data/subjects/reading.json";
-import kokugo from "../data/subjects/kokugo.json";
-import joho from "../data/subjects/joho.json";
-import chiriSougou from "../data/subjects/chiri-sougou.json";
 
 export type SubjectFixture = {
   id: string;
@@ -17,29 +14,42 @@ export type SubjectFixture = {
   maxScore: number;
 };
 
-const FIXTURES: Record<string, SubjectFixture> = {
-  reading: reading as SubjectFixture,
-  kokugo: kokugo as SubjectFixture,
-  joho: joho as SubjectFixture,
-  "chiri-sougou": chiriSougou as SubjectFixture,
-};
+/** Known committed JSON fixtures (do not import JSON at module load — breaks Vercel). */
+const FIXTURE_IDS = ["reading", "kokugo", "joho", "chiri-sougou"] as const;
 
 export function listFixtureIds(): string[] {
-  return Object.keys(FIXTURES);
+  return [...FIXTURE_IDS];
 }
 
 export function hasFixture(id: string): boolean {
-  return id in FIXTURES;
+  return (FIXTURE_IDS as readonly string[]).includes(id);
+}
+
+function fixturePath(id: string): string {
+  // process.cwd() is project root on Vercel; import.meta.dir works locally for Bun.
+  const candidates = [
+    join(process.cwd(), "data", "subjects", `${id}.json`),
+    join(import.meta.dir, "..", "data", "subjects", `${id}.json`),
+  ];
+  for (const p of candidates) {
+    try {
+      readFileSync(p);
+      return p;
+    } catch {
+      /* try next */
+    }
+  }
+  throw new Error(`fixture file not found: ${id} (cwd=${process.cwd()})`);
 }
 
 export function loadFixture(id: string): SubjectFixture {
-  const f = FIXTURES[id];
-  if (!f) {
+  if (!hasFixture(id)) {
     throw new Error(
       `JSON fixture が無い科目: ${id}（あるもの: ${listFixtureIds().join(", ")}）`,
     );
   }
-  return f;
+  const raw = readFileSync(fixturePath(id), "utf8");
+  return JSON.parse(raw) as SubjectFixture;
 }
 
 /** Web / Vercel 用。PDF・pdftotext を使わず committed JSON から用意する。 */

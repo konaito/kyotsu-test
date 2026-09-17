@@ -5,7 +5,7 @@
   "buildCommand": "bun run build",
   "outputDirectory": "public",
   "functions": {
-    "api/run.ts": { "maxDuration": 300, "includeFiles": "data/**" },
-    "api/subjects.ts": { "includeFiles": "data/**" }
+    "api/run.ts": { "maxDuration": 300, "includeFiles": "data/subjects/**" },
+    "api/subjects.ts": { "includeFiles": "data/subjects/**" }
   }
 }
