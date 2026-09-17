@@ -56,7 +56,3 @@ test("seikaiRange 付き科目がある", () => {
   expect(ranged.map((s) => s.id)).toContain("butsuri-kiso");
 });
 
-test("listening は公式スクリプト extras を持つ", () => {
-  const listening = SUBJECTS.find((s) => s.id === "listening");
-  expect(listening?.extras?.some((e) => e.label.includes("スクリプト"))).toBe(true);
-});

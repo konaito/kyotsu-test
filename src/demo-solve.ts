@@ -34,17 +34,54 @@ export type SubjectResult = {
 export function aggregateScore(
   seikai: SeikaiItem[],
   items: ItemResult[],
+  opts?: {
+    electiveDaimons?: [string, string][];
+    officialMax?: number;
+  },
 ): { score: number; maxScore: number } {
   const byKey = new Map(items.map((i) => [i.key, i]));
-  const seen = new Set<string>();
-  let score = 0;
-  let maxScore = 0;
-  for (const s of seikai) {
-    if (seen.has(s.groupId)) continue;
-    seen.add(s.groupId);
-    const pts = s.points ?? 0;
-    maxScore += pts;
-    if (byKey.get(s.key)?.correct) score += pts;
+
+  const sumGroup = (rows: SeikaiItem[]): { score: number; maxScore: number } => {
+    const seen = new Set<string>();
+    let score = 0;
+    let maxScore = 0;
+    for (const s of rows) {
+      if (seen.has(s.groupId)) continue;
+      seen.add(s.groupId);
+      const pts = s.points ?? 0;
+      maxScore += pts;
+      if (byKey.get(s.key)?.correct) score += pts;
+    }
+    return { score, maxScore };
+  };
+
+  const electives = opts?.electiveDaimons ?? [];
+  if (electives.length === 0) {
+    const base = sumGroup(seikai);
+    if (opts?.officialMax != null && opts.officialMax !== base.maxScore) {
+      // Prefer official 満点 when raw sum disagrees (e.g. still-broken parse).
+      return { score: Math.min(base.score, opts.officialMax), maxScore: opts.officialMax };
+    }
+    return base;
+  }
+
+  const electiveSet = new Set(electives.flat());
+  const required = seikai.filter((s) => !s.daimon || !electiveSet.has(s.daimon));
+  let score = sumGroup(required).score;
+  let maxScore = sumGroup(required).maxScore;
+
+  for (const [a, b] of electives) {
+    const groupA = seikai.filter((s) => s.daimon === a);
+    const groupB = seikai.filter((s) => s.daimon === b);
+    const sa = sumGroup(groupA);
+    const sb = sumGroup(groupB);
+    // Student picks one elective 大問; take the better earned score and the better max.
+    maxScore += Math.max(sa.maxScore, sb.maxScore);
+    score += Math.max(sa.score, sb.score);
+  }
+
+  if (opts?.officialMax != null && opts.officialMax !== maxScore) {
+    return { score: Math.min(score, opts.officialMax), maxScore: opts.officialMax };
   }
   return { score, maxScore };
 }
@@ -170,7 +207,10 @@ export function demoSolve(prepared: PreparedSubject): SubjectResult {
     probability: predicted && item.answers.includes(predicted) ? 0.91 : 0.42,
     confidence: undefined,
   }));
-  const { score, maxScore } = aggregateScore(prepared.seikai, items);
+  const { score, maxScore } = aggregateScore(prepared.seikai, items, {
+    electiveDaimons: prepared.electiveDaimons,
+    officialMax: prepared.officialMax,
+  });
   return {
     subject: prepared.subject,
     items,

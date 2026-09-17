@@ -78,7 +78,7 @@ const SLOT_TOKEN =
   /^(?:[0-9０-９]{1,3}(?:[－−―\-][0-9０-９]{1,3})?|[アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン](?:[，,、・][アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン])*)$/;
 
 const ANSWER_TOKEN =
-  /^(?:[0-9０-９]{1,2}(?:[，,、・．\.][0-9０-９]{1,2})*(?:[－−―\-][0-9０-９]{1,2}(?:[，,、・．\.][0-9０-９]{1,2})*)?)$/;
+  /^(?:[0-9０-９]{1,2}(?:又は[0-9０-９]{1,2})+|[0-9０-９]{1,2}(?:[，,、・．\.][0-9０-９]{1,2})*(?:[－−―\-][0-9０-９]{1,2}(?:[，,、・．\.][0-9０-９]{1,2})*)?)$/;
 
 /** Per-item 配点 digits (ignore "(配点)", "(Ｎ)", section totals, "＊"). */
 const POINTS_TOKEN = /^[0-9０-９]{1,2}$/;
@@ -104,6 +104,15 @@ function splitHyphen(raw: string): { parts: string[]; hyphen: boolean } {
 }
 
 function parseAnswerCell(raw: string): { answers: string[]; unordered: boolean } {
+  // "1又は2" = either answer is acceptable for this single slot (not unordered group).
+  if (/又は/.test(raw)) {
+    const answers = toHalfWidth(raw)
+      .split(/又は/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .flatMap(splitList);
+    return { answers, unordered: false };
+  }
   const { parts, hyphen } = splitHyphen(raw);
   const answers = parts.flatMap(splitList).flatMap((p) => splitList(p));
   return { answers, unordered: hyphen || answers.length > 1 };
@@ -313,6 +322,33 @@ function parsePage(page: Page): SeikaiItem[] {
       });
     }
 
+    // Fallback: slots whose 正解 is prose ("は2" / "は5" for conditional 公共倫理 27-28).
+    const haWords = page.words.filter(
+      (w) =>
+        w.y > header.y + 14 &&
+        w.x >= seiMin &&
+        w.x <= seiMax &&
+        /^は[0-9０-９]{1,2}$/.test(w.text),
+    );
+    const idWordsByY = [...idWords].sort((a, b) => a.y - b.y);
+    for (let i = 0; i < idWordsByY.length; i++) {
+      const idWord = idWordsByY[i]!;
+      if (rowMeta.has(idWord)) continue;
+      const yLo = idWord.y - 8;
+      const yHi = i + 1 < idWordsByY.length ? idWordsByY[i + 1]!.y : idWord.y + 50;
+      const mine = haWords.filter((ha) => ha.y >= yLo && ha.y < yHi);
+      if (mine.length === 0) continue;
+      const slots = parseSlotCell(idWord.text);
+      const answers = mine.map((w) => toHalfWidth(w.text.slice(1)));
+      if (slots.length === 0 || answers.length === 0) continue;
+      matchedRows.push(idWord);
+      rowMeta.set(idWord, {
+        slots,
+        answers,
+        unordered: false,
+      });
+    }
+
     const pointsByRow = assignPoints(matchedRows, pointWords, header.haiX);
 
     for (const idWord of matchedRows) {
@@ -358,20 +394,61 @@ function parsePage(page: Page): SeikaiItem[] {
   return items;
 }
 
-export function parseSeikaiBbox(
+export type SeikaiParseResult = {
+  items: SeikaiItem[];
+  /** From "(N点満点)" on the selected page(s). */
+  officialMax?: number;
+  /** Mutually exclusive 大問 pairs (e.g. 第5問 vs 第6問 elective). */
+  electiveDaimons?: [string, string][];
+};
+
+function parseOfficialMax(layoutText: string, rangeLabel?: string): number | undefined {
+  const collapsed = collapse(layoutText);
+  if (rangeLabel) {
+    const needle = `出題範囲：${collapse(rangeLabel)}`;
+    const idx = collapsed.indexOf(needle);
+    const slice = idx >= 0 ? collapsed.slice(idx) : collapsed;
+    const m = slice.match(/\((\d+)点満点\)/);
+    if (m) return Number(m[1]);
+  }
+  const matches = [...collapsed.matchAll(/\((\d+)点満点\)/g)];
+  if (matches.length === 0) return undefined;
+  // Prefer the subject-title 満点 (often the only one, or the last before tables).
+  return Number(matches[0]![1]);
+}
+
+function parseElectiveDaimons(layoutText: string): [string, string][] {
+  const collapsed = collapse(layoutText);
+  const out: [string, string][] = [];
+  const re = /第([0-9０-９]+)問又は第([0-9０-９]+)問/g;
+  for (const m of collapsed.matchAll(re)) {
+    const a = `第${toHalfWidth(m[1]!)}問`;
+    const b = `第${toHalfWidth(m[2]!)}問`;
+    if (!out.some(([x, y]) => x === a && y === b)) out.push([a, b]);
+  }
+  return out;
+}
+
+export function parseSeikaiDetailed(
   xml: string,
   rangeLabel?: string,
   layoutText?: string,
-): SeikaiItem[] {
+): SeikaiParseResult {
   const pages = parseBboxPages(xml);
   let selected = pages;
+  let selectedLayout = layoutText ?? "";
   if (rangeLabel) {
     const needle = `出題範囲：${collapse(rangeLabel)}`;
-    const layoutPages = (layoutText ?? "").split("\f").map((p) => collapse(p));
+    const layoutPages = (layoutText ?? "").split("\f");
+    const layoutCollapsed = layoutPages.map((p) => collapse(p));
+    const idxs: number[] = [];
     selected = pages.filter((_, i) => {
-      const layout = layoutPages[i] ?? "";
-      return layout.includes(needle) || pagePlain(pages[i]!).includes(needle);
+      const layout = layoutCollapsed[i] ?? "";
+      const ok = layout.includes(needle) || pagePlain(pages[i]!).includes(needle);
+      if (ok) idxs.push(i);
+      return ok;
     });
+    selectedLayout = idxs.map((i) => layoutPages[i] ?? "").join("\f");
   }
   if (selected.length === 0) {
     throw new Error(
@@ -386,7 +463,22 @@ export function parseSeikaiBbox(
         : "正解PDFから解答番号を抽出できなかった",
     );
   }
-  return items;
+  const layoutForMeta = selectedLayout || layoutText || selected.map(pagePlain).join("");
+  const officialMax = parseOfficialMax(layoutForMeta, rangeLabel);
+  const electiveDaimons = parseElectiveDaimons(layoutForMeta);
+  return {
+    items,
+    officialMax,
+    electiveDaimons: electiveDaimons.length > 0 ? electiveDaimons : undefined,
+  };
+}
+
+export function parseSeikaiBbox(
+  xml: string,
+  rangeLabel?: string,
+  layoutText?: string,
+): SeikaiItem[] {
+  return parseSeikaiDetailed(xml, rangeLabel, layoutText).items;
 }
 
 export function scoreItem(

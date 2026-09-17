@@ -1,5 +1,5 @@
 import { dncUrl, type DncFile, type Subject } from "./catalog.ts";
-import { parseSeikaiBbox, type SeikaiItem } from "./seikai.ts";
+import { parseSeikaiDetailed, type SeikaiItem } from "./seikai.ts";
 
 const CACHE = ".cache";
 const UA =
@@ -85,13 +85,19 @@ export async function extractExamText(pdfPath: string): Promise<{
   return { text: layout, tategaki: false };
 }
 
+export type SeikaiExtract = {
+  items: SeikaiItem[];
+  officialMax?: number;
+  electiveDaimons?: [string, string][];
+};
+
 export async function extractSeikai(
   subject: Subject,
-): Promise<SeikaiItem[]> {
+): Promise<SeikaiExtract> {
   const path = await downloadFile(subject.seikai);
   const xml = await pdftotext(path, ["-bbox"]);
   const layout = await pdftotext(path, ["-layout"]);
-  return parseSeikaiBbox(xml, subject.seikaiRange, layout);
+  return parseSeikaiDetailed(xml, subject.seikaiRange, layout);
 }
 
 export type PreparedSubject = {
@@ -100,6 +106,8 @@ export type PreparedSubject = {
   extraTexts: Array<{ label: string; text: string }>;
   seikai: SeikaiItem[];
   tategaki: boolean;
+  officialMax?: number;
+  electiveDaimons?: [string, string][];
 };
 
 export async function prepareSubject(
@@ -113,7 +121,7 @@ export async function prepareSubject(
     const extracted = await extractExamText(p);
     extraTexts.push({ label: extra.label, text: extracted.text });
   }
-  const seikai = await extractSeikai(subject);
+  const extracted = await extractSeikai(subject);
   if (exam.text.replace(/\s+/g, "").length < 400) {
     throw new Error(`${subject.name}: 問題文の抽出が短すぎる (${exam.text.length} chars)`);
   }
@@ -121,7 +129,9 @@ export async function prepareSubject(
     subject,
     examText: exam.text,
     extraTexts,
-    seikai,
+    seikai: extracted.items,
     tategaki: exam.tategaki,
+    officialMax: extracted.officialMax,
+    electiveDaimons: extracted.electiveDaimons,
   };
 }
