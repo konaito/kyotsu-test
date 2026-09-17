@@ -56,7 +56,19 @@ async function main() {
           probability: undefined,
           confidence: undefined,
         })),
+        {
+          electiveDaimons: prepared.electiveDaimons,
+          officialMax: prepared.officialMax,
+        },
       );
+      if (
+        prepared.officialMax != null &&
+        prepared.officialMax !== maxScore
+      ) {
+        console.warn(
+          `  WARN ${subject.id}: sum(points)/elective maxScore=${maxScore} ≠ officialMax=${prepared.officialMax}`,
+        );
+      }
       const fixture: SubjectFixture = {
         id: subject.id,
         name: subject.name,
@@ -65,10 +77,12 @@ async function main() {
         extraTexts: prepared.extraTexts,
         seikai: prepared.seikai,
         maxScore,
+        officialMax: prepared.officialMax,
+        electiveDaimons: prepared.electiveDaimons,
       };
       await Bun.write(dest, `${JSON.stringify(fixture)}\n`);
       console.log(
-        `  ok exam=${fixture.examText.length}chars seikai=${fixture.seikai.length} maxScore=${maxScore}${fixture.tategaki ? " 縦書き" : ""} extras=${fixture.extraTexts.length}`,
+        `  ok exam=${fixture.examText.length}chars seikai=${fixture.seikai.length} maxScore=${maxScore}${prepared.officialMax != null ? ` officialMax=${prepared.officialMax}` : ""}${fixture.tategaki ? " 縦書き" : ""} extras=${fixture.extraTexts.length}`,
       );
       ok.push(subject.id);
     } catch (e) {

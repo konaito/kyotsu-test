@@ -13,10 +13,14 @@ export type SubjectFixture = {
   extraTexts: Array<{ label: string; text: string }>;
   seikai: SeikaiItem[];
   maxScore: number;
+  /** From PDF title "(N点満点)" when parsed. */
+  officialMax?: number;
+  /** Pairs of 大問 that are mutually exclusive for 満点 (e.g. 第5問 vs 第6問). */
+  electiveDaimons?: [string, string][];
 };
 
 /** Known committed JSON fixtures (do not import JSON at module load — breaks Vercel). */
-const FIXTURE_IDS = ["kokugo", "chiri-tankyu", "nihonshi-tankyu", "sekaishi-tankyu", "koukyo-rinri", "koukyo-seiji", "chiri-sougou", "rekishi-sougou", "koukyo", "butsuri-kiso", "kagaku-kiso", "seibutsu-kiso", "chigaku-kiso", "butsuri", "kagaku", "seibutsu", "chigaku", "reading", "listening", "joho"] as const;
+const FIXTURE_IDS = ["kokugo", "chiri-tankyu", "nihonshi-tankyu", "sekaishi-tankyu", "koukyo-rinri", "koukyo-seiji", "chiri-sougou", "rekishi-sougou", "koukyo", "butsuri-kiso", "kagaku-kiso", "seibutsu-kiso", "chigaku-kiso", "butsuri", "kagaku", "seibutsu", "chigaku", "reading", "joho"] as const;
 
 export function listFixtureIds(): string[] {
   return [...FIXTURE_IDS];
@@ -76,5 +80,7 @@ export function prepareFromFixture(subjectOrId: Subject | string): PreparedSubje
     extraTexts: f.extraTexts,
     seikai: f.seikai.map((s) => ({ ...s })),
     tategaki: f.tategaki,
+    officialMax: f.officialMax,
+    electiveDaimons: f.electiveDaimons,
   };
 }

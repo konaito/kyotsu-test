@@ -204,7 +204,10 @@ export async function solveSubject(
     );
   }
 
-  const { score, maxScore } = aggregateScore(prepared.seikai, items);
+  const { score, maxScore } = aggregateScore(prepared.seikai, items, {
+    electiveDaimons: prepared.electiveDaimons,
+    officialMax: prepared.officialMax,
+  });
   return {
     subject: prepared.subject,
     items,

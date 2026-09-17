@@ -17,7 +17,6 @@ const SUBJECTS = [
   { id: "seibutsu", name: "生物", hasFixture: true },
   { id: "chigaku", name: "地学", hasFixture: true },
   { id: "reading", name: "英語（リーディング）", hasFixture: true },
-  { id: "listening", name: "英語（リスニング・公式スクリプト）", hasFixture: true },
   { id: "joho", name: "情報Ⅰ", hasFixture: true },
 ];
 

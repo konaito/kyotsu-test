@@ -194,21 +194,6 @@ export const SUBJECTS: Subject[] = [
     options: DIGITS_1_9,
   },
   {
-    id: "listening",
-    name: "英語（リスニング・公式スクリプト）",
-    exam: exam("abm00005955.pdf", "2025_op_25_listening.pdf"),
-    seikai: seikai("abm00005155.pdf", "r7_listening_seikai.pdf"),
-    extras: [
-      {
-        d: E771,
-        f: "abm00005156.pdf",
-        n: "r7_listening_script.pdf",
-        label: "公式スクリプト",
-      },
-    ],
-    options: DIGITS_1_9,
-  },
-  {
     id: "joho",
     name: "情報Ⅰ",
     exam: exam("abm00005965.pdf", "2025_op_43_joho1.pdf"),

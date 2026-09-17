@@ -363,6 +363,9 @@ async function run() {
       phaseEl.textContent = "やめ。";
       unlockControls();
       $("btn-again").hidden = false;
+      if (!board.hidden) {
+        board.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 
