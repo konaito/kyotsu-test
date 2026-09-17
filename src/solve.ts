@@ -1,68 +1,27 @@
 import { gateway } from "@ai-sdk/gateway";
 import { experimental_evaluate as evaluate } from "ai";
-import type { Subject } from "./catalog.ts";
 import type { PreparedSubject } from "./extract.ts";
 import {
   normalizeExamText,
   parseChoices,
   splitPassages,
 } from "./normalize.ts";
-import { scoreItem, type SeikaiItem } from "./seikai.ts";
+import { scoreItem } from "./seikai.ts";
+import {
+  aggregateScore,
+  demoSolve,
+  type ItemResult,
+  type SubjectResult,
+} from "./demo-solve.ts";
 
 export const MODEL_ID = "typesafe-ai/jev";
+export { aggregateScore, demoSolve, type ItemResult, type SubjectResult };
 
 type ChoiceQuestion = {
   type: "choice";
   instructions: string;
   criteria: Record<string, string>;
 };
-
-export type ItemResult = {
-  key: string;
-  predicted: string | undefined;
-  gold: string[];
-  unordered: boolean;
-  correct: boolean;
-  /** Official 配点 for this slot (hyphen siblings share; aggregate once per groupId). */
-  points: number;
-  probability: number | undefined;
-  confidence: number | undefined;
-};
-
-export type SubjectResult = {
-  subject: Subject;
-  items: ItemResult[];
-  correct: number;
-  total: number;
-  /** Earned points (配点), counting each groupId once. */
-  score: number;
-  /** Sum of 配点, counting each groupId once. */
-  maxScore: number;
-  elapsedMs: number;
-  inputTokens: number | undefined;
-  outputTokens: number | undefined;
-  tategaki: boolean;
-  extraLabels: string[];
-};
-
-/** Aggregate official 配点 once per unordered/hyphen groupId. */
-export function aggregateScore(
-  seikai: SeikaiItem[],
-  items: ItemResult[],
-): { score: number; maxScore: number } {
-  const byKey = new Map(items.map((i) => [i.key, i]));
-  const seen = new Set<string>();
-  let score = 0;
-  let maxScore = 0;
-  for (const s of seikai) {
-    if (seen.has(s.groupId)) continue;
-    seen.add(s.groupId);
-    const pts = s.points ?? 0;
-    maxScore += pts;
-    if (byKey.get(s.key)?.correct) score += pts;
-  }
-  return { score, maxScore };
-}
 
 function criteriaOf(options: string[]): Record<string, string> {
   const out: Record<string, string> = {};
@@ -169,53 +128,6 @@ export async function pingJev(): Promise<void> {
   if (p < 0.5) {
     throw new Error(`jev ping が変: probability=${p}`);
   }
-}
-
-function hashKey(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-}
-
-/** jevが使えないときの演出用。予測の8割は正解、2割は別選択肢。 */
-export function demoSolve(prepared: PreparedSubject): SubjectResult {
-  const siblings = prepared.seikai.map((item) => {
-    const wrong = hashKey(item.key) % 5 === 0;
-    let predicted = item.answers[0];
-    if (wrong) {
-      predicted =
-        prepared.subject.options.find((o) => !item.answers.includes(o)) ??
-        predicted;
-    }
-    return { item, predicted };
-  });
-  const items: ItemResult[] = siblings.map(({ item, predicted }) => ({
-    key: item.key,
-    predicted,
-    gold: item.answers,
-    unordered: item.unordered,
-    correct: scoreItem(item, predicted, siblings),
-    points: item.points,
-    probability: predicted && item.answers.includes(predicted) ? 0.91 : 0.42,
-    confidence: undefined,
-  }));
-  const { score, maxScore } = aggregateScore(prepared.seikai, items);
-  return {
-    subject: prepared.subject,
-    items,
-    correct: items.filter((i) => i.correct).length,
-    total: items.length,
-    score,
-    maxScore,
-    elapsedMs: 220 + prepared.seikai.length * 2.4,
-    inputTokens: Math.round(prepared.examText.length * 0.4),
-    outputTokens: prepared.seikai.length * 8,
-    tategaki: prepared.tategaki,
-    extraLabels: [...prepared.extraTexts.map((e) => e.label), "デモ"],
-  };
 }
 
 export async function solveSubject(
