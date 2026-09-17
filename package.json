@@ -1,0 +1,22 @@
+{
+  "name": "kousoku-kyotsu-test",
+  "module": "src/cli.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "solve": "bun run src/cli.ts",
+    "extract": "bun run src/cli.ts --dry-run",
+    "web": "bun run src/server.ts",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@ai-sdk/gateway": "^4.0.85",
+    "ai": "^7.0.105"
+  }
+}
