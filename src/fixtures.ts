@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { findSubjects, type Subject } from "./catalog.ts";
 import type { PreparedSubject } from "./extract.ts";
 import type { SeikaiItem } from "./seikai.ts";
@@ -26,12 +27,22 @@ export function hasFixture(id: string): boolean {
 }
 
 function fixturePath(id: string): string {
-  // process.cwd() is project root on Vercel; import.meta.dir works locally for Bun.
-  const candidates = [
-    join(process.cwd(), "data", "subjects", `${id}.json`),
-    join(import.meta.dir, "..", "data", "subjects", `${id}.json`),
-  ];
+  // process.cwd() is project root on Vercel. import.meta.dir is Bun-only —
+  // never pass undefined into join (Node throws before we can try cwd).
+  const candidates = [join(process.cwd(), "data", "subjects", `${id}.json`)];
+  const metaDir = (import.meta as { dir?: string }).dir;
+  if (typeof metaDir === "string" && metaDir.length > 0) {
+    candidates.push(join(metaDir, "..", "data", "subjects", `${id}.json`));
+  }
+  try {
+    const here = fileURLToPath(new URL(".", import.meta.url));
+    candidates.push(join(here, "..", "data", "subjects", `${id}.json`));
+  } catch {
+    /* import.meta.url unavailable */
+  }
+  const tried: string[] = [];
   for (const p of candidates) {
+    tried.push(p);
     try {
       readFileSync(p);
       return p;
@@ -39,7 +50,9 @@ function fixturePath(id: string): string {
       /* try next */
     }
   }
-  throw new Error(`fixture file not found: ${id} (cwd=${process.cwd()})`);
+  throw new Error(
+    `fixture file not found: ${id} (cwd=${process.cwd()}; tried=${tried.join(" | ")})`,
+  );
 }
 
 export function loadFixture(id: string): SubjectFixture {
