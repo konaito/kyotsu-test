@@ -1,3 +1,21 @@
+import geminiBenchmark from "../data/gemini-benchmark.json";
+import qwenBenchmark from "../data/qwen-benchmark.json";
+
+let activeGeminiBenchmark: any = geminiBenchmark;
+let activeQwenBenchmark: any = qwenBenchmark;
+
+async function refreshBenchmarks() {
+  try {
+    const res = await fetch("/api/benchmarks");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.qwen) activeQwenBenchmark = data.qwen;
+      if (data.gemini) activeGeminiBenchmark = data.gemini;
+    }
+  } catch {}
+}
+refreshBenchmarks();
+
 type SubjectInfo = { id: string; name: string; hasFixture?: boolean };
 type SlotDTO = { key: string; slot: string; daimon: string | null };
 type PaperDTO = {
@@ -191,15 +209,66 @@ function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-async function playFill(paperEl: HTMLElement, filled: FilledDTO) {
-  const playMs = Math.min(2400, Math.max(900, filled.elapsedMs * 7));
-  const dt = playMs / Math.max(filled.items.length, 1);
+interface QueuedMark {
+  paperId: string;
+  key: string;
+  predicted: string;
+}
+
+let markQueue: QueuedMark[] = [];
+let isProcessingQueue = false;
+const papersById = new Map<string, { el: HTMLElement; paper: PaperDTO }>();
+
+function applyMark(paperId: string, key: string, predicted: string) {
+  const rec = papersById.get(paperId);
+  if (!rec) return;
+  const row = rec.el.querySelector(`[data-key="${CSS.escape(key)}"]`);
+  if (!row) return;
+  const oval = row.querySelector(`.oval[data-v="${CSS.escape(predicted)}"]`);
+  oval?.classList.add("on");
+}
+
+async function processMarkQueue() {
+  if (isProcessingQueue) return;
+  isProcessingQueue = true;
+
+  while (markQueue.length > 0) {
+    const item = markQueue.shift()!;
+    applyMark(item.paperId, item.key, item.predicted);
+
+    const qLen = markQueue.length;
+    if (qLen === 0) {
+      await sleep(8);
+    } else if (qLen <= 4) {
+      await sleep(14);
+    } else if (qLen <= 10) {
+      await sleep(6);
+    } else {
+      await new Promise((r) => requestAnimationFrame(r));
+    }
+  }
+
+  isProcessingQueue = false;
+}
+
+function enqueueMark(mark: QueuedMark) {
+  markQueue.push(mark);
+  if (!isProcessingQueue) {
+    processMarkQueue();
+  }
+}
+
+function flushMarks(paperId: string, filled: FilledDTO) {
+  for (let i = markQueue.length - 1; i >= 0; i--) {
+    if (markQueue[i].paperId === paperId) {
+      const item = markQueue.splice(i, 1)[0];
+      applyMark(item.paperId, item.key, item.predicted);
+    }
+  }
   for (const item of filled.items) {
-    const row = paperEl.querySelector(`[data-key="${CSS.escape(item.key)}"]`);
-    if (!row || !item.predicted) continue;
-    const oval = row.querySelector(`.oval[data-v="${CSS.escape(item.predicted)}"]`);
-    oval?.classList.add("on");
-    await sleep(dt);
+    if (item.predicted) {
+      applyMark(paperId, item.key, item.predicted);
+    }
   }
 }
 
@@ -213,7 +282,7 @@ async function grade(paperEl: HTMLElement, filled: FilledDTO) {
     if (gold && !item.correct) {
       gold.textContent = `正 ${item.gold.join("・")}`;
     }
-    await sleep(18);
+    await sleep(6);
   }
   const stamp = paperEl.querySelector("[data-stamp]");
   if (stamp) {
@@ -225,18 +294,73 @@ async function grade(paperEl: HTMLElement, filled: FilledDTO) {
 
 function addBoardRow(name: string, filled: FilledDTO) {
   const tr = document.createElement("tr");
-  tr.innerHTML = `<td>${name}</td><td>${filled.score}/${filled.maxScore}</td><td>${(filled.elapsedMs / 1000).toFixed(2)}s</td>`;
+  const geminiSubjects = (activeGeminiBenchmark.subjects ?? {}) as Record<
+    string,
+    { score: number; maxScore: number; pct: number }
+  >;
+  const gemini = geminiSubjects[filled.id];
+  const geminiText = gemini
+    ? `${gemini.score}/${gemini.maxScore} <span class="sub-pct">(${gemini.pct}%)</span>`
+    : "—";
+
+  const qwenList = Array.isArray(activeQwenBenchmark.subjects) ? activeQwenBenchmark.subjects : [];
+  const qwen = qwenList.find((s: any) => s.id === filled.id);
+  const qwenPct = qwen && qwen.maxScore > 0 ? ((qwen.score / qwen.maxScore) * 100).toFixed(1) : undefined;
+  const qwenText = qwen
+    ? `${qwen.score}/${qwen.maxScore} <span class="sub-pct">(${qwenPct}%)</span>`
+    : "—";
+
+  const myPct =
+    filled.maxScore > 0 ? ((filled.score / filled.maxScore) * 100).toFixed(1) : "0.0";
+
+  tr.dataset.score = String(filled.score);
+  tr.dataset.max = String(filled.maxScore);
+  tr.dataset.geminiScore = String(gemini?.score ?? 0);
+  tr.dataset.geminiMax = String(gemini?.maxScore ?? 0);
+  tr.dataset.qwenScore = String(qwen?.score ?? 0);
+  tr.dataset.qwenMax = String(qwen?.maxScore ?? 0);
+  tr.dataset.elapsed = String(filled.elapsedMs);
+
+  tr.innerHTML = `
+    <td><strong>${name}</strong></td>
+    <td><strong>${filled.score}/${filled.maxScore}</strong> <span class="sub-pct">(${myPct}%)</span></td>
+    <td class="bench-col">${geminiText}</td>
+    <td class="bench-col">${qwenText}</td>
+    <td>${(filled.elapsedMs / 1000).toFixed(2)}s</td>
+  `;
   boardBody.append(tr);
+
   let score = 0;
   let maxScore = 0;
+  let gScore = 0;
+  let gMax = 0;
+  let qScore = 0;
+  let qMax = 0;
   let ms = 0;
+
   for (const row of boardBody.querySelectorAll("tr")) {
-    const [num, den] = (row.children[1]?.textContent ?? "0/0").split("/").map(Number);
-    score += num ?? 0;
-    maxScore += den ?? 0;
-    ms += parseFloat(row.children[2]?.textContent ?? "0") * 1000;
+    score += Number(row.dataset.score ?? 0);
+    maxScore += Number(row.dataset.max ?? 0);
+    gScore += Number(row.dataset.geminiScore ?? 0);
+    gMax += Number(row.dataset.geminiMax ?? 0);
+    qScore += Number(row.dataset.qwenScore ?? 0);
+    qMax += Number(row.dataset.qwenMax ?? 0);
+    ms += Number(row.dataset.elapsed ?? 0);
   }
-  $("board-total").textContent = `${score}/${maxScore}`;
+
+  const pct = maxScore > 0 ? ((score / maxScore) * 100).toFixed(1) : "0.0";
+  const gPct = gMax > 0 ? ((gScore / gMax) * 100).toFixed(1) : "0.0";
+  const qPct = qMax > 0 ? ((qScore / qMax) * 100).toFixed(1) : "0.0";
+
+  $("board-total").innerHTML = `${score}/${maxScore} <span class="summary-pct">(${pct}%)</span>`;
+  const geminiTotalEl = document.getElementById("board-gemini-total");
+  if (geminiTotalEl) {
+    geminiTotalEl.innerHTML = `${gScore}/${gMax} <span class="summary-pct">(${gPct}%)</span>`;
+  }
+  const qwenTotalEl = document.getElementById("board-qwen-total");
+  if (qwenTotalEl) {
+    qwenTotalEl.innerHTML = `${qScore}/${qMax} <span class="summary-pct">(${qPct}%)</span>`;
+  }
   $("board-time").textContent = `${(ms / 1000).toFixed(2)}s`;
   board.hidden = false;
 }
@@ -290,6 +414,10 @@ async function run() {
   stage.hidden = false;
   papers.replaceChildren();
   boardBody.replaceChildren();
+  $("board-total").textContent = "—";
+  const gTot = document.getElementById("board-gemini-total");
+  if (gTot) gTot.textContent = "—";
+  $("board-time").textContent = "—";
   board.hidden = true;
   $("btn-again").hidden = true;
   btnStart.disabled = true;
@@ -302,7 +430,9 @@ async function run() {
 
   runAbort?.abort();
   runAbort = new AbortController();
-  const papersById = new Map<string, { el: HTMLElement; paper: PaperDTO }>();
+  papersById.clear();
+  markQueue = [];
+  isProcessingQueue = false;
   const pendingFill = new Map<string, Promise<void>>();
   let finished = false;
 
@@ -319,14 +449,21 @@ async function run() {
       papersById.set(paper.id, { el, paper });
       return;
     }
+    if (event === "mark") {
+      const d = JSON.parse(raw) as { id: string; key: string; predicted: string };
+      enqueueMark({ paperId: d.id, key: d.key, predicted: d.predicted });
+      return;
+    }
     if (event === "filled") {
       const filled = JSON.parse(raw) as FilledDTO;
       const rec = papersById.get(filled.id);
       if (!rec) return;
       const p = (async () => {
         phaseEl.textContent = `${rec.paper.name}　実測 ${(filled.elapsedMs / 1000).toFixed(2)} 秒。`;
-        await playFill(rec.el, filled);
-        await sleep(500);
+        for (const item of filled.items) {
+          if (item.predicted) applyMark(filled.id, item.key, item.predicted);
+        }
+        await sleep(150);
         await grade(rec.el, filled);
         addBoardRow(rec.paper.name, filled);
       })();

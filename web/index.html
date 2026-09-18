@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>令和7年度 本試験 解答用紙</title>
+    <title>令和7年度 大学入学共通テスト 解答用紙</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@500;700&family=Share+Tech+Mono&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@500;700;800&family=Share+Tech+Mono&family=Zen+Kaku+Gothic+Antique:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -15,28 +16,47 @@
   <body>
     <div class="desk">
       <header class="mast">
-        <p class="mast-kicker">独立行政法人 大学入試センター　／　jev 受験</p>
-        <h1>令和七年度　大学入学共通テスト</h1>
-        <p class="mast-sub">本試験　解答用紙<span class="slash">／</span>数学を除く</p>
+        <div class="mast-badge-wrap">
+          <span class="mast-kicker">独立行政法人 大学入試センター　／　jev 受験</span>
+        </div>
+        <h1>令和七年度 大学入学共通テスト</h1>
+        <p class="mast-sub">
+          <span>本試験 解答用紙</span>
+          <span class="slash">／</span>
+          <span>超高速自律AI解答システム</span>
+        </p>
       </header>
 
       <section id="ticket" class="ticket">
         <div class="ticket-head">
-          <span>受験票</span>
-          <span class="exam-no">受験番号　<span>J E V</span></span>
+          <div class="ticket-title-group">
+            <span class="ticket-badge">令和7年度 本試験</span>
+            <span class="ticket-title">受験票</span>
+          </div>
+          <div class="exam-no">
+            <span class="exam-no-label">受験番号</span>
+            <span class="exam-no-val">J E V</span>
+          </div>
         </div>
         <p class="ticket-note">
-          解答始めの合図で、マーク欄が埋まる。速さは実測。再生は目で追える速度にしてある。
-          終わりに朱で自己採点する。
+          「解答始め」の合図で自律解答が開始し、マーク欄がリアルタイムに埋まります。速度は実測値です。
+          終了後、即座に朱書きで自己採点が行われます。
         </p>
+        <div class="grid-header">
+          <span class="grid-title">受験科目選択</span>
+          <span class="grid-hint">※ Fixture収録済み科目から選択可能</span>
+        </div>
         <div id="subject-grid" class="subject-grid"></div>
         <div class="ticket-actions">
-          <button type="button" id="btn-start" class="btn-start">解答始め</button>
+          <button type="button" id="btn-start" class="btn-start">
+            <span class="btn-icon">▶</span> 解答始め
+          </button>
           <button type="button" id="btn-all" class="btn-all">全科目で始める</button>
-          <button type="button" id="btn-check-all" class="btn-again">全選択</button>
+          <button type="button" id="btn-check-all" class="btn-again btn-ghost">全選択</button>
           <label class="demo-toggle">
             <input type="checkbox" id="demo" />
-            デモ（jevを叩かない）
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">デモ（API非消費）</span>
           </label>
         </div>
         <p id="ticket-error" class="ticket-error" hidden></p>
@@ -44,36 +64,62 @@
 
       <section id="stage" class="stage" hidden>
         <div class="stage-bar">
-          <div class="phase" id="phase">静粛に。</div>
+          <div class="phase-wrap">
+            <span class="pulse-indicator"></span>
+            <div class="phase" id="phase">静粛に。</div>
+          </div>
           <div class="clock">
-            <span class="clock-label">経過</span>
+            <span class="clock-label">経過時間</span>
             <span id="clock" class="clock-num">00:00.00</span>
           </div>
         </div>
         <div id="papers" class="papers"></div>
         <aside id="board" class="board" hidden>
-          <h2>自己採点</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>科目</th>
-                <th>得点</th>
-                <th>実測</th>
-              </tr>
-            </thead>
-            <tbody id="board-body"></tbody>
-            <tfoot>
-              <tr>
-                <th>計</th>
-                <td id="board-total">—</td>
-                <td id="board-time">—</td>
-              </tr>
-            </tfoot>
-          </table>
+          <div class="board-top">
+            <div>
+              <h2>自己採点結果</h2>
+              <p class="board-subtitle">jev 自律解答 vs Gemini 2.5 Flash Lite vs Qwen 3.5（同一プロンプト参考値）</p>
+            </div>
+            <span class="board-badge">採点録</span>
+          </div>
+          <div class="board-summary">
+            <div class="summary-card">
+              <span class="summary-label">総合得点 (jev)</span>
+              <span class="summary-val" id="board-total">—</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-label">参考 (Gemini 2.5 FL)</span>
+              <span class="summary-val mono" id="board-gemini-total">—</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-label">参考 (Qwen 3.5)</span>
+              <span class="summary-val mono" id="board-qwen-total">—</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-label">合計実測時間</span>
+              <span class="summary-val mono" id="board-time">—</span>
+            </div>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>科目</th>
+                  <th>jev 実測得点</th>
+                  <th>Gemini 2.5 FL</th>
+                  <th>Qwen 3.5</th>
+                  <th>実測時間</th>
+                </tr>
+              </thead>
+              <tbody id="board-body"></tbody>
+            </table>
+          </div>
           <p class="board-foot">
-            図表は文字になった範囲だけ。リスニングは公式スクリプト。
+            ※ 図表はテキスト復元範囲のみ。Gemini 2.5 Flash Lite / Qwen 3.5 は同一抽出データで計測した事前ベンチマーク実測値です。
           </p>
-          <button type="button" id="btn-again" class="btn-again" hidden>受験票に戻る</button>
+          <div class="board-actions">
+            <button type="button" id="btn-again" class="btn-again" hidden>← 受験票に戻る</button>
+          </div>
         </aside>
       </section>
     </div>

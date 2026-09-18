@@ -1,0 +1,180 @@
+{
+  "model": "google/gemini-2.5-flash-lite",
+  "timestamp": "2026-09-17T23:28:06.053Z",
+  "totalScore": 665,
+  "totalMax": 1650,
+  "totalPct": 40.3,
+  "subjects": {
+    "chiri-tankyu": {
+      "name": "地理総合，地理探究",
+      "score": 9,
+      "maxScore": 100,
+      "correct": 3,
+      "total": 30,
+      "pct": 9,
+      "elapsedMs": 2656.1487079999997
+    },
+    "nihonshi-tankyu": {
+      "name": "歴史総合，日本史探究",
+      "score": 61,
+      "maxScore": 100,
+      "correct": 20,
+      "total": 33,
+      "pct": 61,
+      "elapsedMs": 2749.915083
+    },
+    "kokugo": {
+      "name": "国語",
+      "score": 108,
+      "maxScore": 200,
+      "correct": 20,
+      "total": 38,
+      "pct": 54,
+      "elapsedMs": 2956.958583
+    },
+    "sekaishi-tankyu": {
+      "name": "歴史総合，世界史探究",
+      "score": 42,
+      "maxScore": 100,
+      "correct": 14,
+      "total": 32,
+      "pct": 42,
+      "elapsedMs": 1566.8958750000002
+    },
+    "koukyo-seiji": {
+      "name": "公共，政治・経済",
+      "score": 48,
+      "maxScore": 100,
+      "correct": 16,
+      "total": 32,
+      "pct": 48,
+      "elapsedMs": 1917.120042
+    },
+    "chiri-sougou": {
+      "name": "地理総合",
+      "score": 16,
+      "maxScore": 50,
+      "correct": 5,
+      "total": 16,
+      "pct": 32,
+      "elapsedMs": 1215.9969169999995
+    },
+    "koukyo-rinri": {
+      "name": "公共，倫理",
+      "score": 40,
+      "maxScore": 100,
+      "correct": 14,
+      "total": 33,
+      "pct": 40,
+      "elapsedMs": 2763.737875
+    },
+    "butsuri-kiso": {
+      "name": "物理基礎",
+      "score": 13,
+      "maxScore": 50,
+      "correct": 4,
+      "total": 15,
+      "pct": 26,
+      "elapsedMs": 1327.862916
+    },
+    "koukyo": {
+      "name": "公共",
+      "score": 28,
+      "maxScore": 50,
+      "correct": 9,
+      "total": 16,
+      "pct": 56,
+      "elapsedMs": 1593.4602910000003
+    },
+    "rekishi-sougou": {
+      "name": "歴史総合",
+      "score": 31,
+      "maxScore": 50,
+      "correct": 10,
+      "total": 16,
+      "pct": 62,
+      "elapsedMs": 2261.418167
+    },
+    "kagaku-kiso": {
+      "name": "化学基礎",
+      "score": 16,
+      "maxScore": 50,
+      "correct": 6,
+      "total": 19,
+      "pct": 32,
+      "elapsedMs": 1466.9280829999998
+    },
+    "seibutsu-kiso": {
+      "name": "生物基礎",
+      "score": 31,
+      "maxScore": 50,
+      "correct": 11,
+      "total": 17,
+      "pct": 62,
+      "elapsedMs": 1493.0314999999991
+    },
+    "chigaku-kiso": {
+      "name": "地学基礎",
+      "score": 24,
+      "maxScore": 50,
+      "correct": 7,
+      "total": 15,
+      "pct": 48,
+      "elapsedMs": 1812.8127079999995
+    },
+    "butsuri": {
+      "name": "物理",
+      "score": 4,
+      "maxScore": 100,
+      "correct": 1,
+      "total": 24,
+      "pct": 4,
+      "elapsedMs": 1406.9037079999998
+    },
+    "seibutsu": {
+      "name": "生物",
+      "score": 29,
+      "maxScore": 100,
+      "correct": 7,
+      "total": 25,
+      "pct": 29,
+      "elapsedMs": 1362.1729999999989
+    },
+    "chigaku": {
+      "name": "地学",
+      "score": 56,
+      "maxScore": 100,
+      "correct": 15,
+      "total": 27,
+      "pct": 56,
+      "elapsedMs": 1461.0315410000003
+    },
+    "kagaku": {
+      "name": "化学",
+      "score": 16,
+      "maxScore": 100,
+      "correct": 5,
+      "total": 40,
+      "pct": 16,
+      "elapsedMs": 2660.483791999999
+    },
+    "reading": {
+      "name": "英語（リーディング）",
+      "score": 76,
+      "maxScore": 100,
+      "correct": 33,
+      "total": 44,
+      "pct": 76,
+      "elapsedMs": 1532.702542000001
+    },
+    "joho": {
+      "name": "情報Ⅰ",
+      "score": 17,
+      "maxScore": 100,
+      "correct": 9,
+      "total": 51,
+      "pct": 17,
+      "elapsedMs": 1738.3437080000003
+    }
+  }
+}

@@ -53,7 +53,7 @@ type Chunk = {
   parsed: ReturnType<typeof parseChoices>;
 };
 
-function chunksFor(prepared: PreparedSubject): Chunk[] {
+export function chunksFor(prepared: PreparedSubject): Chunk[] {
   const exam = normalizeExamText(prepared.examText);
   const passages = splitPassages(exam);
   const extras = prepared.extraTexts
@@ -93,7 +93,7 @@ function chunksFor(prepared: PreparedSubject): Chunk[] {
   return [...byLabel.values()];
 }
 
-function questionFor(
+export function questionFor(
   prepared: PreparedSubject,
   item: PreparedSubject["seikai"][number],
   parsed: ReturnType<typeof parseChoices>,
@@ -130,25 +130,91 @@ export async function pingJev(): Promise<void> {
   }
 }
 
+async function evaluateChunk(
+  model: any,
+  state: any,
+  questions: Record<string, ChoiceQuestion>,
+  maxRetries = 2,
+) {
+  let lastError: unknown;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await model.doEvaluate({ state, questions });
+    } catch (e) {
+      lastError = e;
+      if (attempt < maxRetries) {
+        await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+      }
+    }
+  }
+  throw lastError;
+}
+
+export interface SolveSubjectOptions {
+  maxRetries?: number;
+  onItemSolved?: (item: {
+    key: string;
+    predicted?: string;
+    probability?: number;
+  }) => void;
+}
+
+function extractItemAnswer(answer: any): {
+  predicted?: string;
+  probability?: number;
+} {
+  let predicted: string | undefined =
+    answer && answer.type === "choice" && answer.choice != null
+      ? String(answer.choice)
+      : undefined;
+  let probability: number | undefined =
+    predicted && answer?.probabilities
+      ? answer.probabilities[predicted]
+      : undefined;
+
+  // モデルの choice と probabilities の最高確率がわずかに食い違う場合、
+  // 常に最も確率が高い選択肢を優先して採用する
+  if (answer?.probabilities && typeof answer.probabilities === "object") {
+    let bestKey = predicted;
+    let bestProb = probability ?? -1;
+    for (const [optKey, optProb] of Object.entries(answer.probabilities)) {
+      if (typeof optProb === "number" && optProb > bestProb) {
+        bestProb = optProb;
+        bestKey = optKey;
+      }
+    }
+    if (bestKey != null) {
+      predicted = String(bestKey);
+      probability = bestProb;
+    }
+  }
+  return { predicted, probability };
+}
+
 export async function solveSubject(
   prepared: PreparedSubject,
+  options?: SolveSubjectOptions | number,
 ): Promise<SubjectResult> {
+  const maxRetries = typeof options === "number" ? options : (options?.maxRetries ?? 2);
+  const onItemSolved = typeof options === "object" ? options?.onItemSolved : undefined;
+
   const chunks = chunksFor(prepared);
   if (chunks.length === 0) {
     throw new Error(`${prepared.subject.name}: 大問に分割できなかった`);
   }
   const { gateway } = await import("@ai-sdk/gateway");
-  const { experimental_evaluate: evaluate } = await import("ai");
+  const model = gateway.evaluationModel(MODEL_ID);
   const started = performance.now();
+
   const chunkOut = await Promise.all(
     chunks.map(async (chunk) => {
       const questions: Record<string, ChoiceQuestion> = {};
       for (const item of chunk.items) {
         questions[item.key] = questionFor(prepared, item, chunk.parsed);
       }
-      const result = await evaluate({
-        model: gateway.evaluationModel(MODEL_ID),
-        state: {
+      const result = await evaluateChunk(
+        model,
+        {
           subject: prepared.subject.name,
           section: chunk.label,
           legend:
@@ -156,7 +222,21 @@ export async function solveSubject(
           text: chunk.text,
         },
         questions,
-      });
+        maxRetries,
+      );
+
+      // 解答が確定した設問をリアルタイムに通知
+      if (onItemSolved) {
+        for (const item of chunk.items) {
+          const ans = extractItemAnswer(result.answers?.[item.key]);
+          onItemSolved({
+            key: item.key,
+            predicted: ans.predicted,
+            probability: ans.probability,
+          });
+        }
+      }
+
       return { chunk, result };
     }),
   );
@@ -166,18 +246,10 @@ export async function solveSubject(
   let inputTokens = 0;
   let outputTokens = 0;
   for (const { chunk, result } of chunkOut) {
-    inputTokens += result.usage.inputTokens ?? 0;
-    outputTokens += result.usage.outputTokens ?? 0;
+    inputTokens += result.usage?.inputTokens ?? 0;
+    outputTokens += result.usage?.outputTokens ?? 0;
     for (const item of chunk.items) {
-      const answer = result.answers[item.key];
-      predictedByKey.set(item.key, {
-        predicted:
-          answer && answer.type === "choice" ? String(answer.choice) : undefined,
-        probability:
-          answer && answer.type === "choice"
-            ? answer.probabilities?.[answer.choice]
-            : undefined,
-      });
+      predictedByKey.set(item.key, extractItemAnswer(result.answers?.[item.key]));
     }
   }
 
