@@ -92,6 +92,16 @@ export function runSseResponse(req: Request): Response {
       const send = (event: string, data: unknown) => {
         controller.enqueue(enc.encode(sse(event, data)));
       };
+
+      // 2.5秒ごとに keepalive コメントを送信し、長時間推論時のソケットタイムアウト・切断を防止
+      const keepaliveTimer = setInterval(() => {
+        try {
+          controller.enqueue(enc.encode(": keepalive\n\n"));
+        } catch {
+          // controller closed
+        }
+      }, 2500);
+
       try {
         send("hello", { demo, count: subjects.length, source: "json-fixture" });
         for (const subject of subjects) {
@@ -108,11 +118,34 @@ export function runSseResponse(req: Request): Response {
             name: subject.name,
           });
           if (demo) {
-            send("filled", toFilled(demoSolve(prepared), true));
+            const demoResult = demoSolve(prepared);
+            for (const it of demoResult.items) {
+              if (it.predicted) {
+                send("mark", {
+                  id: subject.id,
+                  key: it.key,
+                  predicted: it.predicted,
+                });
+                await new Promise((r) => setTimeout(r, 12));
+              }
+            }
+            send("filled", toFilled(demoResult, true));
             continue;
           }
           try {
-            send("filled", toFilled(await solveSubject(prepared), false));
+            const result = await solveSubject(prepared, {
+              onItemSolved: (it) => {
+                if (it.predicted) {
+                  send("mark", {
+                    id: subject.id,
+                    key: it.key,
+                    predicted: it.predicted,
+                    probability: it.probability,
+                  });
+                }
+              },
+            });
+            send("filled", toFilled(result, false));
           } catch (e) {
             send("error", {
               id: subject.id,
@@ -127,6 +160,7 @@ export function runSseResponse(req: Request): Response {
           error: e instanceof Error ? e.message : String(e),
         });
       } finally {
+        clearInterval(keepaliveTimer);
         controller.close();
       }
     },

@@ -8,6 +8,8 @@
     "extract": "bun run src/cli.ts --dry-run",
     "web": "bun run src/dev-server.ts",
     "test": "bun test",
+    "benchmark:gemini": "bun run src/scripts/run-gemini-benchmark.ts",
+    "benchmark:qwen": "bun run src/scripts/run-qwen-benchmark.ts",
     "build": "bun build ./web/index.html --outdir=public --minify"
   },
   "devDependencies": {

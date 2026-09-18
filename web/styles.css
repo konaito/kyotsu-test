@@ -1,16 +1,51 @@
 :root {
-  --paper: #f4ead4;
-  --paper-edge: #e6d7b8;
-  --ink: #1b1610;
-  --print: #243a6b;
-  --print-soft: #3a527c;
-  --rule: #c9b79a;
-  --shu: #c0162a;
-  --shu-soft: #e24b4b;
-  --desk: #cbb89a;
-  --desk-dark: #b49d7c;
-  --mark: #1a140e;
-  --ok: #1a6b3c;
+  /* Canvas & Surfaces */
+  --bg: #f6f8fa;
+  --bg-grid: rgba(15, 23, 42, 0.04);
+  --paper: #ffffff;
+  --paper-subtle: #f8fafc;
+  --paper-dark: #0f172a;
+  
+  /* Typography Colors */
+  --ink: #0f172a;
+  --ink-secondary: #475569;
+  --ink-muted: #94a3b8;
+  --ink-inverted: #f8fafc;
+  
+  /* Academic Indigo / Navy (公式感・格式・知性) */
+  --print: #1e3a8a;
+  --print-hover: #1d4ed8;
+  --print-soft: #eff6ff;
+  --print-border: #bfdbfe;
+  
+  /* 朱色 (日本の伝統朱肉・自己採点・アクセント) */
+  --shu: #c22026;
+  --shu-bright: #e11d48;
+  --shu-soft: #fff1f2;
+  --shu-border: #fecdd3;
+  
+  /* 正解・ステータス */
+  --ok: #15803d;
+  --ok-soft: #f0fdf4;
+  --ok-border: #bbf7d0;
+  
+  /* 鉛筆・黒鉛 (マークシートのリアルな質感) */
+  --graphite: #1c222b;
+  --graphite-sheen: #374151;
+  
+  /* 境界線・角丸・影 */
+  --rule: #e2e8f0;
+  --rule-dark: #cbd5e1;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 16px 32px -4px rgba(15, 23, 42, 0.08), 0 6px 16px -2px rgba(15, 23, 42, 0.04);
+  --shadow-stamp: 0 4px 12px rgba(194, 32, 38, 0.25);
 }
 
 * {
@@ -21,238 +56,451 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background:
-    radial-gradient(1200px 500px at 50% -10%, #efe4cc 0%, transparent 60%),
-    repeating-linear-gradient(
-      90deg,
-      #c4ad8a 0 2px,
-      #cbb89a 2px 18px,
-      #bea680 18px 20px
-    );
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 50% 0%, #ffffff 20%, transparent 80%),
+    linear-gradient(to right, var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--bg-grid) 1px, transparent 1px);
+  background-size: 100% 100%, 28px 28px, 28px 28px;
   color: var(--ink);
-  font-family: "Zen Kaku Gothic Antique", "Hiragino Kaku Gothic ProN", sans-serif;
+  font-family: "Zen Kaku Gothic Antique", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* -------------------------------------------------------------
+   Desk Container
+------------------------------------------------------------- */
 .desk {
-  max-width: 980px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 28px 16px 80px;
+  padding: 36px 20px 96px;
 }
 
+/* -------------------------------------------------------------
+   Masthead (ヘッダー)
+------------------------------------------------------------- */
 .mast {
   text-align: center;
-  margin-bottom: 22px;
-  color: var(--ink);
+  margin-bottom: 32px;
+}
+
+.mast-badge-wrap {
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
 .mast-kicker {
+  display: inline-flex;
+  align-items: center;
   margin: 0;
-  letter-spacing: 0.28em;
-  font-size: 11px;
+  padding: 5px 14px;
+  background: var(--print-soft);
+  border: 1px solid var(--print-border);
+  border-radius: var(--radius-full);
+  color: var(--print);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
 }
 
 .mast h1 {
-  margin: 8px 0 4px;
+  margin: 10px 0 8px;
   font-family: "Kaisei Tokumin", serif;
-  font-weight: 700;
-  font-size: clamp(22px, 4vw, 34px);
-  letter-spacing: 0.12em;
-  line-height: 1.4;
+  font-weight: 800;
+  font-size: clamp(24px, 4.5vw, 36px);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  line-height: 1.35;
 }
 
 .mast-sub {
   margin: 0;
-  font-size: 13px;
-  letter-spacing: 0.22em;
+  font-size: 14px;
+  color: var(--ink-secondary);
+  letter-spacing: 0.14em;
+  font-weight: 500;
 }
 
 .slash {
-  margin: 0 0.6em;
-  opacity: 0.5;
+  margin: 0 0.8em;
+  color: var(--rule-dark);
 }
 
+/* -------------------------------------------------------------
+   Cards Common (Ticket, Paper, Board)
+------------------------------------------------------------- */
 .ticket,
 .paper,
 .board {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 40%),
-    var(--paper);
-  border: 1px solid #8d7a58;
-  box-shadow:
-    0 1px 0 #fff6e4 inset,
-    0 18px 40px rgba(70, 50, 20, 0.18);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   position: relative;
+  transition: box-shadow 0.3s ease;
 }
 
-.ticket::before,
-.paper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.09;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+.ticket:hover,
+.paper:hover,
+.board:hover {
+  box-shadow: var(--shadow-lg);
 }
 
+/* -------------------------------------------------------------
+   Ticket (受験票)
+------------------------------------------------------------- */
 .ticket {
-  padding: 22px 22px 18px;
+  padding: 28px 32px;
+  margin-bottom: 36px;
+  border-top: 4px solid var(--print);
 }
 
 .ticket-head {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  border-bottom: 2px solid var(--print);
-  padding-bottom: 8px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--print);
+  align-items: center;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 16px;
+  margin-bottom: 18px;
 }
 
-.exam-no span {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 2px 10px 0;
-  border: 1.5px solid var(--print);
-  letter-spacing: 0.35em;
+.ticket-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticket-badge {
+  background: var(--print-soft);
+  color: var(--print);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.06em;
+}
+
+.ticket-title {
   font-family: "Kaisei Tokumin", serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+}
+
+.exam-no {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.exam-no-label {
+  font-size: 12px;
+  color: var(--ink-secondary);
+  letter-spacing: 0.1em;
+}
+
+.exam-no-val {
+  display: inline-block;
+  padding: 4px 14px;
+  border: 1.5px dashed var(--print);
+  border-radius: var(--radius-xs);
+  background: var(--print-soft);
+  color: var(--print);
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.35em;
 }
 
 .ticket-note {
-  font-size: 13px;
-  line-height: 1.7;
-  color: #4a4338;
-  max-width: 40em;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--ink-secondary);
+  background: var(--paper-subtle);
+  border-left: 3px solid var(--print);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 12px 18px;
+  margin: 0 0 24px;
 }
 
+.grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.grid-title {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.grid-hint {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+/* Subject Grid */
 .subject-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
-  border: 1px solid var(--print);
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
 .subject-grid label {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
-  font-size: 14px;
+  padding: 10px 14px;
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
   cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease-in-out;
 }
 
-.subject-grid label:nth-child(2n) {
-  border-right: 0;
+.subject-grid label:hover:not(.no-fixture) {
+  border-color: var(--print-border);
+  background: var(--print-soft);
+  transform: translateY(-1px);
+}
+
+.subject-grid label:has(input:checked) {
+  border-color: var(--print);
+  background: var(--print-soft);
+  color: var(--print);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--print);
 }
 
 .subject-grid label.no-fixture {
   opacity: 0.45;
+  background: var(--paper-subtle);
+  border-color: var(--rule);
+  cursor: not-allowed;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+}
+
+.subject-grid input[type="checkbox"] {
+  accent-color: var(--print);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.subject-grid label.no-fixture input {
   cursor: not-allowed;
 }
 
-.subject-grid input {
-  accent-color: var(--print);
-}
-
+/* Ticket Actions */
 .ticket-actions {
   display: flex;
-  gap: 18px;
+  gap: 14px;
   align-items: center;
-  margin-top: 16px;
   flex-wrap: wrap;
+  padding-top: 8px;
+}
+
+.btn-start,
+.btn-all,
+.btn-again {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  appearance: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: "Zen Kaku Gothic Antique", sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 11px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-start {
-  appearance: none;
-  background: var(--print);
-  color: var(--paper);
-  border: 0;
-  padding: 10px 28px 9px;
-  font: 700 16px/1 "Kaisei Tokumin", serif;
-  letter-spacing: 0.28em;
-  cursor: pointer;
-  white-space: nowrap;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
 }
 
-.btn-start:disabled,
-.btn-all:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
+.btn-start:hover:not(:disabled) {
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-start:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 11px;
 }
 
 .btn-all {
-  appearance: none;
-  background: var(--shu);
-  color: var(--paper);
-  border: 0;
-  padding: 10px 22px 9px;
-  font: 700 16px/1 "Kaisei Tokumin", serif;
-  letter-spacing: 0.18em;
-  cursor: pointer;
-  white-space: nowrap;
+  background: linear-gradient(135deg, var(--shu) 0%, #e11d48 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(194, 32, 38, 0.28);
+}
+
+.btn-all:hover:not(:disabled) {
+  box-shadow: 0 6px 18px rgba(194, 32, 38, 0.38);
+  transform: translateY(-1px);
+}
+
+.btn-again {
+  background: var(--paper);
+  border: 1.5px solid var(--rule-dark);
+  color: var(--ink-secondary);
+}
+
+.btn-again:hover:not(:disabled) {
+  border-color: var(--print);
+  color: var(--print);
+  background: var(--print-soft);
+}
+
+.btn-start:disabled,
+.btn-all:disabled,
+.btn-again:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .demo-toggle {
-  font-size: 13px;
-  display: flex;
-  gap: 6px;
+  display: inline-flex;
   align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  user-select: none;
+  margin-left: auto;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-subtle);
+  border: 1px solid var(--rule);
+}
+
+.demo-toggle input {
+  accent-color: var(--print);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
 }
 
 .ticket-error {
   color: var(--shu);
-  font-size: 13px;
+  background: var(--shu-soft);
+  border: 1px solid var(--shu-border);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  margin-top: 18px;
 }
 
+/* -------------------------------------------------------------
+   Stage Bar (進行バー & タイマー)
+------------------------------------------------------------- */
 .stage-bar {
   display: flex;
   justify-content: space-between;
-  align-items: end;
-  margin: 8px 2px 12px;
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 14px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.phase-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pulse-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--ok);
+  box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+  animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(22, 163, 74, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
 }
 
 .phase {
   font-family: "Kaisei Tokumin", serif;
-  font-size: 20px;
-  letter-spacing: 0.16em;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+
+.clock {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  background: var(--paper-dark);
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
 }
 
 .clock-label {
   font-size: 11px;
-  letter-spacing: 0.2em;
-  margin-right: 8px;
+  letter-spacing: 0.15em;
+  color: var(--ink-muted);
+  font-weight: 600;
 }
 
 .clock-num {
   font-family: "Share Tech Mono", monospace;
-  font-size: 28px;
-  letter-spacing: 0.04em;
+  font-size: 26px;
+  letter-spacing: 0.06em;
+  color: #38bdf8;
+  font-weight: 700;
 }
 
+/* -------------------------------------------------------------
+   Papers (問題用紙 / 解答用紙)
+------------------------------------------------------------- */
 .papers {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 32px;
 }
 
 .paper {
-  padding: 18px 16px 22px 28px;
-}
-
-.paper::after {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 12px;
-  bottom: 12px;
-  width: 8px;
-  background: repeating-linear-gradient(
-    #fff0 0 10px,
-    #8d7a58 10px 12px
-  );
-  border-left: 1.5px dashed #8d7a58;
+  padding: 24px 28px 32px;
+  border-left: 5px solid var(--print);
+  overflow: hidden;
 }
 
 .paper-head {
@@ -260,145 +508,312 @@ body {
   justify-content: space-between;
   align-items: baseline;
   border-bottom: 2px solid var(--print);
-  padding-bottom: 6px;
-  margin-bottom: 12px;
-  color: var(--print);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .paper-head h2 {
   margin: 0;
-  font-size: 18px;
-  letter-spacing: 0.16em;
-  font-weight: 700;
+  font-family: "Kaisei Tokumin", serif;
+  font-size: 21px;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  color: var(--print);
 }
 
 .paper-meta {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 12px;
+  font-family: "Zen Kaku Gothic Antique", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  background: var(--paper-subtle);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--rule);
 }
 
+/* Sheet & Rows */
 .sheet {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 18px;
+  gap: 0 36px;
 }
 
 .row {
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: 88px 1fr;
   align-items: center;
-  gap: 6px;
-  padding: 3px 0;
-  border-bottom: 1px dotted var(--rule);
+  gap: 10px;
+  padding: 6px 8px;
+  border-bottom: 1px solid #f1f5f9;
+  border-radius: var(--radius-xs);
+  transition: background-color 0.2s ease;
+}
+
+.row:hover {
+  background-color: var(--paper-subtle);
 }
 
 .qno {
-  font-size: 11px;
-  color: var(--print-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0.04em;
 }
 
 .ovals {
   display: flex;
   flex-wrap: wrap;
-  gap: 3px;
+  align-items: center;
+  gap: 5px;
 }
 
+/* マーク欄 (楕円カプセル) */
 .oval {
-  width: 18px;
-  height: 22px;
-  border: 1.4px solid var(--print);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 10px;
-  color: var(--print);
-  background: transparent;
-  transform: scaleY(1.05);
+  width: 21px;
+  height: 26px;
+  border: 1.5px solid #64748b;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Zen Kaku Gothic Antique", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  background: #ffffff;
   position: relative;
+  transition: background 0.08s ease-out, border-color 0.08s ease-out, transform 0.08s ease-out, box-shadow 0.08s ease-out;
 }
 
+/* マークされた状態 (鉛筆HB/2Bのリアルな質感・即座に描画) */
 .oval.on {
-  background: var(--mark);
-  border-color: var(--mark);
-  color: var(--paper);
-  box-shadow: inset 0 0 0 1px var(--paper);
+  background: linear-gradient(140deg, #1c222b 0%, #374151 100%);
+  border-color: #111827;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transform: scale(1.04);
+}
+
+/* 採点：正解 */
+.row.grade-ok {
+  background: var(--ok-soft);
+}
+
+.row.grade-ok .qno {
+  color: var(--ok);
 }
 
 .row.grade-ok .qno::after {
-  content: " 正";
+  content: " 〇";
   color: var(--shu);
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 800;
+  margin-left: 2px;
 }
 
+.row.grade-ok .oval.on {
+  border-color: var(--shu);
+  box-shadow: 0 0 0 1.5px var(--shu), 0 2px 4px rgba(194, 32, 38, 0.2);
+}
+
+/* 採点：不正解 */
 .row.grade-ng {
-  background: rgba(192, 22, 42, 0.06);
+  background: var(--shu-soft);
+}
+
+.row.grade-ng .qno {
+  color: var(--shu);
 }
 
 .row.grade-ng .oval.on {
   background: transparent;
   color: var(--shu);
   border-color: var(--shu);
+  box-shadow: none;
 }
 
+/* 不正解の斜線消し */
 .row.grade-ng .oval.on::after {
   content: "";
   position: absolute;
-  left: 3px;
-  right: 3px;
+  left: 2px;
+  right: 2px;
   top: 50%;
-  border-top: 1.6px solid var(--shu);
-  transform: rotate(-28deg);
-}
-
-.row.grade-ng .gold {
-  display: inline;
+  border-top: 2px solid var(--shu);
+  transform: rotate(-35deg);
 }
 
 .gold {
   display: none;
-  margin-left: 6px;
+  margin-left: 8px;
   color: var(--shu);
   font-weight: 700;
   font-size: 12px;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--shu-border);
+  letter-spacing: 0.05em;
 }
 
+.row.grade-ng .gold {
+  display: inline-block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 落款印 / スタンプ (済 / デモ) */
 .stamp {
   position: absolute;
-  right: 18px;
-  top: 52px;
-  border: 3px solid var(--shu);
+  right: 28px;
+  top: 24px;
+  border: 3.5px double var(--shu);
   color: var(--shu);
   font-family: "Kaisei Tokumin", serif;
+  font-weight: 800;
   font-size: 28px;
-  letter-spacing: 0.2em;
-  padding: 4px 10px 2px;
-  transform: rotate(-12deg);
+  letter-spacing: 0.15em;
+  padding: 4px 16px 2px;
+  border-radius: var(--radius-sm);
+  transform: rotate(-10deg) scale(1.4);
   opacity: 0;
   pointer-events: none;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-stamp);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .stamp.show {
-  opacity: 0.85;
+  opacity: 0.92;
+  transform: rotate(-10deg) scale(1);
 }
 
 .stamp.demo {
   border-color: var(--print);
   color: var(--print);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
 }
 
+/* -------------------------------------------------------------
+   Board (自己採点結果ボード)
+------------------------------------------------------------- */
 .board {
-  margin-top: 28px;
-  padding: 18px 20px 22px;
+  margin-top: 36px;
+  padding: 28px 32px;
+  border-top: 4px solid var(--shu);
 }
 
-.board h2 {
-  margin: 0 0 10px;
+.board-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.board-top h2 {
+  margin: 0;
   font-family: "Kaisei Tokumin", serif;
-  letter-spacing: 0.18em;
-  font-size: 20px;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.board-badge {
+  background: var(--shu-soft);
+  color: var(--shu);
+  border: 1px solid var(--shu-border);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.board-subtitle {
+  font-size: 12.5px;
+  color: var(--ink-secondary);
+  margin: 4px 0 0;
+  font-weight: 500;
+}
+
+/* Summary Cards (総合得点 & 時間 & Geminiベンチマーク) */
+.board-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background: var(--paper-subtle);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  letter-spacing: 0.08em;
+}
+
+.summary-val {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--print);
+  letter-spacing: 0.04em;
+}
+
+.summary-card:first-child .summary-val {
+  color: var(--shu);
+}
+
+.summary-card:nth-child(2) .summary-val {
+  color: #0284c7;
+}
+
+.summary-pct {
+  font-size: 0.62em;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  letter-spacing: 0.02em;
+  margin-left: 6px;
+  vertical-align: baseline;
+}
+
+.sub-pct {
+  font-size: 0.78em;
+  color: var(--ink-muted);
+  margin-left: 4px;
+  font-weight: 500;
+}
+
+/* Table */
+.table-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--paper);
+  margin-bottom: 16px;
 }
 
 .board table {
@@ -407,65 +822,122 @@ body {
   font-size: 14px;
 }
 
-.board th,
+.board th {
+  background: var(--paper-subtle);
+  color: var(--ink-secondary);
+  font-weight: 700;
+  border-bottom: 1px solid var(--rule);
+  padding: 10px 14px;
+  text-align: left;
+  letter-spacing: 0.05em;
+}
+
 .board td {
   border-bottom: 1px solid var(--rule);
-  padding: 7px 6px;
+  padding: 11px 14px;
   text-align: left;
+  color: var(--ink);
+}
+
+.board tr:last-child td {
+  border-bottom: none;
+}
+
+.board tr:hover td {
+  background-color: var(--paper-subtle);
+}
+
+.bench-col {
+  color: #0284c7 !important;
 }
 
 .board td:nth-child(2),
 .board td:nth-child(3),
+.board td:nth-child(4),
 .board th:nth-child(2),
-.board th:nth-child(3) {
+.board th:nth-child(3),
+.board th:nth-child(4) {
   text-align: right;
   font-family: "Share Tech Mono", monospace;
+  font-size: 14.5px;
+  font-weight: 600;
 }
 
 .board-foot {
-  font-size: 12px;
-  color: #5c564c;
-  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--ink-muted);
+  margin: 12px 0 0;
+  line-height: 1.6;
 }
 
-.btn-again {
-  appearance: none;
-  margin-top: 12px;
-  background: transparent;
-  border: 1px solid var(--print);
-  color: var(--print);
-  padding: 6px 14px;
-  font: 500 13px/1 "Zen Kaku Gothic Antique", sans-serif;
-  letter-spacing: 0.12em;
-  cursor: pointer;
+.board-actions {
+  margin-top: 20px;
 }
 
 .err-banner {
-  margin: 8px 0 0;
+  margin: 14px 0 0;
   color: var(--shu);
+  background: var(--shu-soft);
+  border: 1px solid var(--shu-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
   font-size: 13px;
 }
 
-@media (max-width: 720px) {
-  .mast h1 {
-    letter-spacing: 0.04em;
-    font-size: 22px;
+/* -------------------------------------------------------------
+   Responsive Design
+------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .desk {
+    padding: 24px 14px 60px;
   }
-  .subject-grid,
-  .sheet {
+  
+  .ticket {
+    padding: 20px 18px;
+  }
+  
+  .ticket-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .exam-no {
+    align-self: flex-start;
+  }
+  
+  .subject-grid {
     grid-template-columns: 1fr;
   }
-  .subject-grid label:nth-child(2n) {
-    border-right: 1px solid var(--rule);
+  
+  .sheet {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
-  .ticket-head,
-  .stage-bar,
+  
+  .stage-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  
+  .clock {
+    align-self: stretch;
+    justify-content: space-between;
+  }
+  
+  .paper {
+    padding: 18px 16px 24px;
+  }
+  
   .paper-head {
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     align-items: flex-start;
   }
-  .paper {
-    padding-left: 22px;
+  
+  .board-summary {
+    grid-template-columns: 1fr;
   }
 }
+
