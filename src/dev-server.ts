@@ -24,7 +24,7 @@ const server = Bun.serve({
         const geminiPath = join(import.meta.dir, "../data/gemini-benchmark.json");
         const qwen = existsSync(qwenPath) ? JSON.parse(await Bun.file(qwenPath).text()) : null;
         const gemini = existsSync(geminiPath) ? JSON.parse(await Bun.file(geminiPath).text()) : null;
-        return Response.json({ qwen, gemini });
+        return Response.json({ qwen, gemini, openjev: qwen });
       },
     },
     "/api/run": {
