@@ -45,6 +45,17 @@ for (const sub of allSubjects) {
       ].join("\n");
 
       const candidateOptions = Object.keys(q.criteria);
+      const optionsList = Object.entries(q.criteria).map(([k, v]) => ({
+        id: k,
+        description: v?.trim() ? v.trim() : `選択肢 [${k}]`,
+      }));
+      const finalOptions =
+        optionsList.length >= 2
+          ? optionsList
+          : sub.options.map((opt) => ({
+              id: opt,
+              description: `選択肢 [${opt}]`,
+            }));
 
       subjectData.questions.push({
         key: item.key,
@@ -54,7 +65,10 @@ for (const sub of allSubjects) {
         unordered: item.unordered,
         groupId: item.groupId,
         gold: item.answers,
-        candidateOptions: candidateOptions.length > 0 ? candidateOptions : sub.options,
+        state: `【${prep.subject.name} - ${chunk.label}】\n\n${chunk.text?.trim() || "（本文なし）"}`,
+        question: `■ 設問 ${item.key} (${chunk.label} 解答番号 [${item.slot}]):\n${q.instructions}`,
+        options: finalOptions,
+        candidateOptions: finalOptions.map((o) => o.id),
         prompt,
       });
     }

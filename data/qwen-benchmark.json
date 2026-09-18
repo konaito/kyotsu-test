@@ -1,20 +1,21 @@
 {
-  "model": "Qwen/Qwen3.5-4B (logits-direct, rev:851bf6e8)",
-  "measuredAt": "2026-09-18T06:15:51Z",
-  "totalScore": 97,
-  "totalMaxScore": 400,
-  "accuracy": 24.2,
-  "totalElapsedMs": 20035731.4,
+  "model": "openjev (Qwen/Qwen3.5-4B, rev:851bf6e8)",
+  "framework": "openjev-phase1 (TheoLeeCJ/openjev)",
+  "measuredAt": "2026-09-18T13:26:29Z",
+  "totalScore": 536,
+  "totalMaxScore": 1650,
+  "accuracy": 32.5,
+  "totalElapsedMs": 6920727.7,
   "subjects": [
     {
       "id": "kokugo",
       "name": "国語",
-      "score": 57,
+      "score": 74,
       "maxScore": 200,
-      "accuracy": 28.5,
-      "correct": 12,
+      "accuracy": 37.0,
+      "correct": 13,
       "total": 38,
-      "elapsedMs": 548224.2,
+      "elapsedMs": 444513.0,
       "items": [
         {
           "key": "第1問:1",
@@ -24,17 +25,17 @@
           ],
           "correct": false,
           "points": 2,
-          "probability": 0.5845
+          "probability": 0.3625
         },
         {
           "key": "第1問:2",
-          "predicted": "2",
+          "predicted": "4",
           "gold": [
             "2"
           ],
-          "correct": true,
+          "correct": false,
           "points": 2,
-          "probability": 0.8521
+          "probability": 0.4168
         },
         {
           "key": "第1問:3",
@@ -44,7 +45,7 @@
           ],
           "correct": false,
           "points": 2,
-          "probability": 0.8669
+          "probability": 0.2425
         },
         {
           "key": "第1問:4",
@@ -54,7 +55,7 @@
           ],
           "correct": true,
           "points": 2,
-          "probability": 0.7543
+          "probability": 0.3227
         },
         {
           "key": "第1問:5",
@@ -64,27 +65,27 @@
           ],
           "correct": false,
           "points": 2,
-          "probability": 0.8354
+          "probability": 0.31
         },
         {
           "key": "第1問:6",
-          "predicted": "6",
+          "predicted": "4",
           "gold": [
             "4"
           ],
-          "correct": false,
+          "correct": true,
           "points": 7,
-          "probability": 0.4482
+          "probability": 0.5977
         },
         {
           "key": "第1問:7",
-          "predicted": "7",
+          "predicted": "4",
           "gold": [
             "3"
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.6229
+          "probability": 0.5317
         },
         {
           "key": "第1問:8",
@@ -94,17 +95,17 @@
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.7398
+          "probability": 0.3123
         },
         {
           "key": "第2問:9",
-          "predicted": "1",
+          "predicted": "9",
           "gold": [
             "2"
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.507
+          "probability": 0.277
         },
         {
           "key": "第2問:10",
@@ -114,27 +115,27 @@
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.6827
+          "probability": 0.3021
         },
         {
           "key": "第2問:11",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "1"
           ],
-          "correct": true,
+          "correct": false,
           "points": 6,
-          "probability": 0.8043
+          "probability": 0.4505
         },
         {
           "key": "第2問:12",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "4"
           ],
           "correct": false,
           "points": 6,
-          "probability": 0.7353
+          "probability": 0.6294
         },
         {
           "key": "第2問:13",
@@ -144,7 +145,7 @@
           ],
           "correct": false,
           "points": 6,
-          "probability": 0.6393
+          "probability": 0.3401
         },
         {
           "key": "第2問:14",
@@ -154,17 +155,17 @@
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.6843
+          "probability": 0.4979
         },
         {
           "key": "第2問:15",
-          "predicted": "1",
+          "predicted": "4",
           "gold": [
             "1"
           ],
-          "correct": true,
+          "correct": false,
           "points": 7,
-          "probability": 0.6163
+          "probability": 0.339
         },
         {
           "key": "第2問:16",
@@ -174,7 +175,7 @@
           ],
           "correct": true,
           "points": 6,
-          "probability": 0.7657
+          "probability": 0.8746
         },
         {
           "key": "第3問:17",
@@ -184,47 +185,47 @@
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.4975
+          "probability": 0.3052
         },
         {
           "key": "第3問:18",
-          "predicted": "1",
-          "gold": [
-            "2"
-          ],
-          "correct": false,
-          "points": 4,
-          "probability": 0.5841
-        },
-        {
-          "key": "第3問:19",
-          "predicted": "1",
-          "gold": [
-            "4"
-          ],
-          "correct": false,
-          "points": 5,
-          "probability": 0.3684
-        },
-        {
-          "key": "第3問:20",
-          "predicted": "2",
-          "gold": [
-            "4"
-          ],
-          "correct": false,
-          "points": 5,
-          "probability": 0.5722
-        },
-        {
-          "key": "第3問:21",
           "predicted": "2",
           "gold": [
             "2"
           ],
           "correct": true,
+          "points": 4,
+          "probability": 0.3115
+        },
+        {
+          "key": "第3問:19",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 5,
+          "probability": 0.4952
+        },
+        {
+          "key": "第3問:20",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 5,
+          "probability": 0.3129
+        },
+        {
+          "key": "第3問:21",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
           "points": 3,
-          "probability": 0.4329
+          "probability": 0.3939
         },
         {
           "key": "第3問:22",
@@ -234,7 +235,7 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6525
+          "probability": 0.2313
         },
         {
           "key": "第4問:23",
@@ -244,7 +245,7 @@
           ],
           "correct": true,
           "points": 5,
-          "probability": 0.5726
+          "probability": 0.4941
         },
         {
           "key": "第4問:24",
@@ -254,7 +255,7 @@
           ],
           "correct": false,
           "points": 5,
-          "probability": 0.6958
+          "probability": 0.5627
         },
         {
           "key": "第4問:25",
@@ -264,7 +265,7 @@
           ],
           "correct": false,
           "points": 5,
-          "probability": 0.5613
+          "probability": 0.4434
         },
         {
           "key": "第4問:26",
@@ -274,7 +275,7 @@
           ],
           "correct": true,
           "points": 7,
-          "probability": 0.6599
+          "probability": 0.3355
         },
         {
           "key": "第4問:27",
@@ -284,7 +285,7 @@
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.4975
+          "probability": 0.4207
         },
         {
           "key": "第4問:28",
@@ -294,129 +295,129 @@
           ],
           "correct": true,
           "points": 8,
-          "probability": 0.6153
+          "probability": 0.4165
         },
         {
           "key": "第4問:29",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 8,
+          "probability": 0.3379
+        },
+        {
+          "key": "第5問:30",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3805
+        },
+        {
+          "key": "第5問:31",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.484
+        },
+        {
+          "key": "第5問:32",
           "predicted": "2",
           "gold": [
             "4"
           ],
           "correct": false,
-          "points": 8,
-          "probability": 0.5601
-        },
-        {
-          "key": "第5問:30",
-          "predicted": "3",
-          "gold": [
-            "3"
-          ],
-          "correct": true,
           "points": 4,
-          "probability": 0.4193
-        },
-        {
-          "key": "第5問:31",
-          "predicted": "1",
-          "gold": [
-            "1"
-          ],
-          "correct": true,
-          "points": 4,
-          "probability": 0.2949
-        },
-        {
-          "key": "第5問:32",
-          "predicted": "3",
-          "gold": [
-            "4"
-          ],
-          "correct": false,
-          "points": 4,
-          "probability": 0.56
+          "probability": 0.5332
         },
         {
           "key": "第5問:33",
-          "predicted": "3",
+          "predicted": "1",
           "gold": [
             "4"
           ],
           "correct": false,
           "points": 7,
-          "probability": 0.3554
+          "probability": 0.5221
         },
         {
           "key": "第5問:34",
-          "predicted": "3",
+          "predicted": "2",
           "gold": [
             "2"
           ],
-          "correct": false,
+          "correct": true,
           "points": 6,
-          "probability": 0.4613
+          "probability": 0.5011
         },
         {
           "key": "第5問:35",
-          "predicted": "3",
+          "predicted": "4",
           "gold": [
             "2"
           ],
           "correct": false,
           "points": 6,
-          "probability": 0.3946
+          "probability": 0.292
         },
         {
           "key": "第5問:36",
-          "predicted": "1",
+          "predicted": "4",
           "gold": [
             "4"
-          ],
-          "correct": false,
-          "points": 3,
-          "probability": 0.3784
-        },
-        {
-          "key": "第5問:37",
-          "predicted": "3",
-          "gold": [
-            "3"
           ],
           "correct": true,
           "points": 3,
-          "probability": 0.3027
+          "probability": 0.5063
+        },
+        {
+          "key": "第5問:37",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4673
         },
         {
           "key": "第5問:38",
-          "predicted": "3",
+          "predicted": "4",
           "gold": [
             "4"
           ],
-          "correct": false,
+          "correct": true,
           "points": 8,
-          "probability": 0.4114
+          "probability": 0.9343
         }
       ]
     },
     {
       "id": "chiri-tankyu",
       "name": "地理総合，地理探究",
-      "score": 15,
+      "score": 26,
       "maxScore": 100,
-      "accuracy": 15.0,
-      "correct": 4,
+      "accuracy": 26.0,
+      "correct": 8,
       "total": 30,
-      "elapsedMs": 264995.7,
+      "elapsedMs": 205461.9,
       "items": [
         {
           "key": "第1問:1",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "2"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.8122
+          "probability": 0.3528
         },
         {
           "key": "第1問:2",
@@ -426,7 +427,7 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.8594
+          "probability": 0.3908
         },
         {
           "key": "第1問:3",
@@ -436,27 +437,27 @@
           ],
           "correct": false,
           "points": 4,
-          "probability": 0.7483
+          "probability": 0.4023
         },
         {
           "key": "第2問:4",
-          "predicted": "4",
+          "predicted": "2",
           "gold": [
             "2"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.3802
+          "probability": 0.2043
         },
         {
           "key": "第2問:5",
-          "predicted": "5",
+          "predicted": "1",
           "gold": [
             "2"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.3956
+          "probability": 0.3072
         },
         {
           "key": "第2問:6",
@@ -466,77 +467,77 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.2974
+          "probability": 0.2592
         },
         {
           "key": "第2問:7",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "5"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.3031
+          "probability": 0.248
         },
         {
           "key": "第2問:8",
-          "predicted": "8",
+          "predicted": "1",
           "gold": [
             "1"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.3443
+          "probability": 0.2417
         },
         {
           "key": "第3問:9",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "3"
           ],
           "correct": false,
           "points": 4,
-          "probability": 0.4185
+          "probability": 0.2221
         },
         {
           "key": "第3問:10",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "2"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.7322
+          "probability": 0.285
         },
         {
           "key": "第3問:11",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "3"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.7842
+          "probability": 0.2584
         },
         {
           "key": "第3問:12",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "2"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.7964
+          "probability": 0.282
         },
         {
           "key": "第3問:13",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "2"
           ],
-          "correct": false,
+          "correct": true,
           "points": 4,
-          "probability": 0.7681
+          "probability": 0.2725
         },
         {
           "key": "第3問:14",
@@ -546,7 +547,7 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.7603
+          "probability": 0.2558
         },
         {
           "key": "第4問:15",
@@ -556,17 +557,17 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6569
+          "probability": 0.2364
         },
         {
           "key": "第4問:16",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "6"
           ],
           "correct": false,
           "points": 4,
-          "probability": 0.6976
+          "probability": 0.2647
         },
         {
           "key": "第4問:17",
@@ -576,17 +577,17 @@
           ],
           "correct": true,
           "points": 4,
-          "probability": 0.64
+          "probability": 0.2629
         },
         {
           "key": "第4問:18",
-          "predicted": "1",
+          "predicted": "2",
           "gold": [
             "2"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.6587
+          "probability": 0.2998
         },
         {
           "key": "第4問:19",
@@ -596,27 +597,27 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.544
+          "probability": 0.1963
         },
         {
           "key": "第5問:20",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "3"
           ],
           "correct": false,
           "points": 4,
-          "probability": 0.6862
+          "probability": 0.318
         },
         {
           "key": "第5問:21",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "2"
           ],
-          "correct": true,
+          "correct": false,
           "points": 3,
-          "probability": 0.4007
+          "probability": 0.5538
         },
         {
           "key": "第5問:22",
@@ -626,47 +627,47 @@
           ],
           "correct": false,
           "points": 4,
-          "probability": 0.6764
+          "probability": 0.5407
         },
         {
           "key": "第5問:23",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "4"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.4942
+          "probability": 0.2774
         },
         {
           "key": "第5問:24",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "2"
           ],
-          "correct": true,
+          "correct": false,
           "points": 4,
-          "probability": 0.4875
+          "probability": 0.2923
         },
         {
           "key": "第6問:25",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "3"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6325
+          "probability": 0.3907
         },
         {
           "key": "第6問:26",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "4"
           ],
           "correct": false,
           "points": 4,
-          "probability": 0.5422
+          "probability": 0.4174
         },
         {
           "key": "第6問:27",
@@ -676,49 +677,49 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6213
+          "probability": 0.3809
         },
         {
           "key": "第6問:28",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "2"
           ],
-          "correct": true,
+          "correct": false,
           "points": 4,
-          "probability": 0.5401
+          "probability": 0.4143
         },
         {
           "key": "第6問:29",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "5"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.564
+          "probability": 0.2538
         },
         {
           "key": "第6問:30",
-          "predicted": "3",
+          "predicted": "1",
           "gold": [
             "2"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6406
+          "probability": 0.2473
         }
       ]
     },
     {
       "id": "nihonshi-tankyu",
       "name": "歴史総合，日本史探究",
-      "score": 25,
+      "score": 45,
       "maxScore": 100,
-      "accuracy": 25.0,
-      "correct": 8,
+      "accuracy": 45.0,
+      "correct": 15,
       "total": 33,
-      "elapsedMs": 19222511.5,
+      "elapsedMs": 250693.7,
       "items": [
         {
           "key": "第1問:1",
@@ -728,27 +729,27 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6131
+          "probability": 0.4057
         },
         {
           "key": "第1問:2",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4243
+        },
+        {
+          "key": "第1問:3",
           "predicted": "2",
           "gold": [
             "2"
           ],
           "correct": true,
           "points": 3,
-          "probability": 0.6974
-        },
-        {
-          "key": "第1問:3",
-          "predicted": "3",
-          "gold": [
-            "2"
-          ],
-          "correct": false,
-          "points": 3,
-          "probability": 0.6821
+          "probability": 0.3918
         },
         {
           "key": "第1問:4",
@@ -758,7 +759,7 @@
           ],
           "correct": true,
           "points": 3,
-          "probability": 0.7488
+          "probability": 0.4659
         },
         {
           "key": "第1問:5",
@@ -768,47 +769,47 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.7432
+          "probability": 0.5927
         },
         {
           "key": "第1問:6",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "3"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.4366
+          "probability": 0.5365
         },
         {
           "key": "第2問:7",
-          "predicted": "1",
+          "predicted": "5",
           "gold": [
             "5"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.4192
+          "probability": 0.483
         },
         {
           "key": "第2問:8",
-          "predicted": "4",
+          "predicted": "2",
           "gold": [
             "4"
           ],
-          "correct": true,
+          "correct": false,
           "points": 4,
-          "probability": 0.6338
+          "probability": 0.3455
         },
         {
           "key": "第2問:9",
-          "predicted": "1",
+          "predicted": "9",
           "gold": [
             "2"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.3554
+          "probability": 0.2568
         },
         {
           "key": "第2問:10",
@@ -818,57 +819,57 @@
           ],
           "correct": true,
           "points": 3,
-          "probability": 0.6792
+          "probability": 0.6225
         },
         {
           "key": "第2問:11",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "2"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.707
+          "probability": 0.3332
         },
         {
           "key": "第2問:12",
-          "predicted": "1",
+          "predicted": "4",
           "gold": [
             "4"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.3495
+          "probability": 0.4435
         },
         {
           "key": "第3問:13",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "3"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.5497
+          "probability": 0.8113
         },
         {
           "key": "第3問:14",
-          "predicted": "1",
+          "predicted": "4",
           "gold": [
             "4"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.6173
+          "probability": 0.4703
         },
         {
           "key": "第3問:15",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "3"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.717
+          "probability": 0.736
         },
         {
           "key": "第3問:16",
@@ -878,17 +879,17 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.7561
+          "probability": 0.2836
         },
         {
           "key": "第3問:17",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "1"
           ],
-          "correct": true,
+          "correct": false,
           "points": 3,
-          "probability": 0.9099
+          "probability": 0.7058
         },
         {
           "key": "第3問:18",
@@ -898,17 +899,17 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6524
+          "probability": 0.2857
         },
         {
           "key": "第4問:19",
-          "predicted": "1",
+          "predicted": "3",
           "gold": [
             "3"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.3543
+          "probability": 0.6178
         },
         {
           "key": "第4問:20",
@@ -918,47 +919,47 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6152
+          "probability": 0.4895
         },
         {
           "key": "第4問:21",
-          "predicted": "2",
+          "predicted": "3",
           "gold": [
             "1"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.3788
+          "probability": 0.5102
         },
         {
           "key": "第4問:22",
-          "predicted": "2",
+          "predicted": "4",
           "gold": [
             "2"
           ],
-          "correct": true,
+          "correct": false,
           "points": 3,
-          "probability": 0.613
+          "probability": 0.4605
         },
         {
           "key": "第5問:23",
-          "predicted": "2",
+          "predicted": "4",
           "gold": [
             "4"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.8221
+          "probability": 0.9328
         },
         {
           "key": "第5問:24",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "4"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.4221
+          "probability": 0.4368
         },
         {
           "key": "第5問:25",
@@ -968,7 +969,7 @@
           ],
           "correct": true,
           "points": 3,
-          "probability": 0.5467
+          "probability": 0.9675
         },
         {
           "key": "第5問:26",
@@ -982,43 +983,43 @@
         },
         {
           "key": "第5問:27",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "2"
           ],
-          "correct": true,
+          "correct": false,
           "points": 3,
-          "probability": 0.6582
+          "probability": 0.3043
         },
         {
           "key": "第6問:28",
-          "predicted": "2",
+          "predicted": "3",
           "gold": [
             "3"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.6383
+          "probability": 0.4615
         },
         {
           "key": "第6問:29",
-          "predicted": "2",
+          "predicted": "1",
           "gold": [
             "1"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.4911
+          "probability": 0.4559
         },
         {
           "key": "第6問:30",
-          "predicted": "3",
+          "predicted": "2",
           "gold": [
             "4"
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.8248
+          "probability": 0.776
         },
         {
           "key": "第6問:31",
@@ -1028,17 +1029,17 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.6225
+          "probability": 0.7058
         },
         {
           "key": "第6問:32",
-          "predicted": "3",
+          "predicted": "4",
           "gold": [
             "4"
           ],
-          "correct": false,
+          "correct": true,
           "points": 3,
-          "probability": 0.8373
+          "probability": 0.4889
         },
         {
           "key": "第6問:33",
@@ -1048,7 +1049,4457 @@
           ],
           "correct": false,
           "points": 3,
-          "probability": 0.9689
+          "probability": 0.5622
+        }
+      ]
+    },
+    {
+      "id": "sekaishi-tankyu",
+      "name": "歴史総合，世界史探究",
+      "score": 41,
+      "maxScore": 100,
+      "accuracy": 41.0,
+      "correct": 13,
+      "total": 32,
+      "elapsedMs": 313668.1,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.5061
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.3273
+        },
+        {
+          "key": "第1問:3",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6805
+        },
+        {
+          "key": "第1問:4",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6589
+        },
+        {
+          "key": "第1問:5",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7942
+        },
+        {
+          "key": "第1問:6",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2257
+        },
+        {
+          "key": "第1問:7",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2105
+        },
+        {
+          "key": "第2問:8",
+          "predicted": "6",
+          "gold": [
+            "6"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.5307
+        },
+        {
+          "key": "第2問:9",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.8725
+        },
+        {
+          "key": "第2問:10",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4619
+        },
+        {
+          "key": "第2問:11",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2504
+        },
+        {
+          "key": "第2問:12",
+          "predicted": "4",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.437
+        },
+        {
+          "key": "第2問:13",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.4918
+        },
+        {
+          "key": "第2問:14",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6514
+        },
+        {
+          "key": "第2問:15",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2811
+        },
+        {
+          "key": "第3問:16",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4814
+        },
+        {
+          "key": "第3問:17",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.3983
+        },
+        {
+          "key": "第3問:18",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.9153
+        },
+        {
+          "key": "第3問:19",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 2,
+          "probability": 0.8242
+        },
+        {
+          "key": "第3問:20",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.421
+        },
+        {
+          "key": "第3問:21",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3128
+        },
+        {
+          "key": "第4問:22",
+          "predicted": "5",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.6045
+        },
+        {
+          "key": "第4問:23",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6274
+        },
+        {
+          "key": "第4問:24",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.5593
+        },
+        {
+          "key": "第4問:25",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4797
+        },
+        {
+          "key": "第4問:26",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7102
+        },
+        {
+          "key": "第5問:27",
+          "predicted": "5",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2522
+        },
+        {
+          "key": "第5問:28",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3731
+        },
+        {
+          "key": "第5問:29",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4002
+        },
+        {
+          "key": "第5問:30",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.339
+        },
+        {
+          "key": "第5問:31",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2625
+        },
+        {
+          "key": "第5問:32",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2396
+        }
+      ]
+    },
+    {
+      "id": "koukyo-rinri",
+      "name": "公共，倫理",
+      "score": 47,
+      "maxScore": 100,
+      "accuracy": 47.0,
+      "correct": 16,
+      "total": 33,
+      "elapsedMs": 817628.0,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7664
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4504
+        },
+        {
+          "key": "第1問:3",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7753
+        },
+        {
+          "key": "第2問:4",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5089
+        },
+        {
+          "key": "第2問:5",
+          "predicted": "5",
+          "gold": [
+            "5"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9421
+        },
+        {
+          "key": "第2問:6",
+          "predicted": "6",
+          "gold": [
+            "6"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.6628
+        },
+        {
+          "key": "第2問:7",
+          "predicted": "4",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5312
+        },
+        {
+          "key": "第2問:8",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6624
+        },
+        {
+          "key": "第3問:9",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9646
+        },
+        {
+          "key": "第3問:10",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5695
+        },
+        {
+          "key": "第3問:11",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6413
+        },
+        {
+          "key": "第3問:12",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4447
+        },
+        {
+          "key": "第3問:13",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5622
+        },
+        {
+          "key": "第3問:14",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.9091
+        },
+        {
+          "key": "第3問:15",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3221
+        },
+        {
+          "key": "第3問:16",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3128
+        },
+        {
+          "key": "第3問:17",
+          "predicted": "5",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.461
+        },
+        {
+          "key": "第4問:18",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4978
+        },
+        {
+          "key": "第4問:19",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7189
+        },
+        {
+          "key": "第4問:20",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6186
+        },
+        {
+          "key": "第4問:21",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9834
+        },
+        {
+          "key": "第4問:22",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3537
+        },
+        {
+          "key": "第5問:23",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5669
+        },
+        {
+          "key": "第5問:24",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4095
+        },
+        {
+          "key": "第5問:25",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.5174
+        },
+        {
+          "key": "第5問:26",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.633
+        },
+        {
+          "key": "第5問:27",
+          "predicted": "2",
+          "gold": [
+            "1",
+            "2"
+          ],
+          "correct": true,
+          "points": 0,
+          "probability": 0.2899
+        },
+        {
+          "key": "第5問:28",
+          "predicted": "1",
+          "gold": [
+            "2",
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.225
+        },
+        {
+          "key": "第6問:29",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.75
+        },
+        {
+          "key": "第6問:30",
+          "predicted": "2",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6186
+        },
+        {
+          "key": "第6問:31",
+          "predicted": "2",
+          "gold": [
+            "7"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2249
+        },
+        {
+          "key": "第6問:32",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.8755
+        },
+        {
+          "key": "第6問:33",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.1926
+        }
+      ]
+    },
+    {
+      "id": "koukyo-seiji",
+      "name": "公共，政治・経済",
+      "score": 31,
+      "maxScore": 100,
+      "accuracy": 31.0,
+      "correct": 10,
+      "total": 32,
+      "elapsedMs": 595375.8,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6524
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4088
+        },
+        {
+          "key": "第1問:3",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7381
+        },
+        {
+          "key": "第2問:4",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5554
+        },
+        {
+          "key": "第2問:5",
+          "predicted": "5",
+          "gold": [
+            "5"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9118
+        },
+        {
+          "key": "第2問:6",
+          "predicted": "6",
+          "gold": [
+            "6"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.3686
+        },
+        {
+          "key": "第2問:7",
+          "predicted": "4",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5622
+        },
+        {
+          "key": "第2問:8",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6207
+        },
+        {
+          "key": "第3問:9",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7237
+        },
+        {
+          "key": "第3問:10",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5816
+        },
+        {
+          "key": "第3問:11",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.965
+        },
+        {
+          "key": "第3問:12",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7982
+        },
+        {
+          "key": "第3問:13",
+          "predicted": "4",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5927
+        },
+        {
+          "key": "第3問:14",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6876
+        },
+        {
+          "key": "第4問:15",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3255
+        },
+        {
+          "key": "第4問:16",
+          "predicted": "2",
+          "gold": [
+            "8"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4885
+        },
+        {
+          "key": "第4問:17",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.5357
+        },
+        {
+          "key": "第4問:18",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.8172
+        },
+        {
+          "key": "第4問:19",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9179
+        },
+        {
+          "key": "第5問:20",
+          "predicted": "2",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2584
+        },
+        {
+          "key": "第5問:21",
+          "predicted": "4",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.9406
+        },
+        {
+          "key": "第5問:22",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7549
+        },
+        {
+          "key": "第5問:23",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.371
+        },
+        {
+          "key": "第5問:24",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9106
+        },
+        {
+          "key": "第5問:25",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4517
+        },
+        {
+          "key": "第6問:26",
+          "predicted": "2",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.7583
+        },
+        {
+          "key": "第6問:27",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6046
+        },
+        {
+          "key": "第6問:28",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4499
+        },
+        {
+          "key": "第6問:29",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.5276
+        },
+        {
+          "key": "第6問:30",
+          "predicted": "4",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.7773
+        },
+        {
+          "key": "第6問:31",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5617
+        },
+        {
+          "key": "第6問:32",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6225
+        }
+      ]
+    },
+    {
+      "id": "chiri-sougou",
+      "name": "地理総合",
+      "score": 16,
+      "maxScore": 50,
+      "accuracy": 32.0,
+      "correct": 5,
+      "total": 16,
+      "elapsedMs": 207820.4,
+      "items": [
+        {
+          "key": "第1問:101",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3942
+        },
+        {
+          "key": "第1問:102",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3255
+        },
+        {
+          "key": "第1問:103",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.2901
+        },
+        {
+          "key": "第2問:104",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4748
+        },
+        {
+          "key": "第2問:105",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4024
+        },
+        {
+          "key": "第2問:106",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5326
+        },
+        {
+          "key": "第2問:107",
+          "predicted": "2",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2955
+        },
+        {
+          "key": "第2問:108",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2642
+        },
+        {
+          "key": "第3問:109",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.8648
+        },
+        {
+          "key": "第3問:110",
+          "predicted": "1",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5631
+        },
+        {
+          "key": "第3問:111",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.3811
+        },
+        {
+          "key": "第4問:112",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4619
+        },
+        {
+          "key": "第4問:113",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.362
+        },
+        {
+          "key": "第4問:114",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.3029
+        },
+        {
+          "key": "第4問:115",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3048
+        },
+        {
+          "key": "第4問:116",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3057
+        }
+      ]
+    },
+    {
+      "id": "rekishi-sougou",
+      "name": "歴史総合",
+      "score": 22,
+      "maxScore": 50,
+      "accuracy": 44.0,
+      "correct": 7,
+      "total": 16,
+      "elapsedMs": 730324.9,
+      "items": [
+        {
+          "key": "第1問:101",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3728
+        },
+        {
+          "key": "第1問:102",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4451
+        },
+        {
+          "key": "第1問:103",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4652
+        },
+        {
+          "key": "第1問:106",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.5873
+        },
+        {
+          "key": "第1問:107",
+          "predicted": "3",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4136
+        },
+        {
+          "key": "第1問:108",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3077
+        },
+        {
+          "key": "第1問:104",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4659
+        },
+        {
+          "key": "第1問:105",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6225
+        },
+        {
+          "key": "第2問:109",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4548
+        },
+        {
+          "key": "第2問:110",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.3354
+        },
+        {
+          "key": "第2問:111",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4762
+        },
+        {
+          "key": "第2問:112",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3093
+        },
+        {
+          "key": "第2問:113",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7741
+        },
+        {
+          "key": "第2問:114",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2871
+        },
+        {
+          "key": "第2問:115",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2495
+        },
+        {
+          "key": "第2問:116",
+          "predicted": "4",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4248
+        }
+      ]
+    },
+    {
+      "id": "koukyo",
+      "name": "公共",
+      "score": 16,
+      "maxScore": 50,
+      "accuracy": 32.0,
+      "correct": 5,
+      "total": 16,
+      "elapsedMs": 207362.6,
+      "items": [
+        {
+          "key": "第1問:101",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.8207
+        },
+        {
+          "key": "第1問:102",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4801
+        },
+        {
+          "key": "第1問:103",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4289
+        },
+        {
+          "key": "第2問:104",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5247
+        },
+        {
+          "key": "第2問:105",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4498
+        },
+        {
+          "key": "第2問:106",
+          "predicted": "2",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4909
+        },
+        {
+          "key": "第2問:107",
+          "predicted": "2",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2691
+        },
+        {
+          "key": "第2問:108",
+          "predicted": "4",
+          "gold": [
+            "8"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4545
+        },
+        {
+          "key": "第3問:109",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4321
+        },
+        {
+          "key": "第3問:110",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7773
+        },
+        {
+          "key": "第3問:111",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.436
+        },
+        {
+          "key": "第4問:112",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6514
+        },
+        {
+          "key": "第4問:113",
+          "predicted": "5",
+          "gold": [
+            "5"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6403
+        },
+        {
+          "key": "第4問:114",
+          "predicted": "2",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2506
+        },
+        {
+          "key": "第4問:115",
+          "predicted": "4",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6225
+        },
+        {
+          "key": "第4問:116",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6775
+        }
+      ]
+    },
+    {
+      "id": "butsuri-kiso",
+      "name": "物理基礎",
+      "score": 10,
+      "maxScore": 50,
+      "accuracy": 20.0,
+      "correct": 3,
+      "total": 15,
+      "elapsedMs": 124196.5,
+      "items": [
+        {
+          "key": "第1問:101",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.974
+        },
+        {
+          "key": "第1問:102",
+          "predicted": "1",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3741
+        },
+        {
+          "key": "第1問:103",
+          "predicted": "1",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3264
+        },
+        {
+          "key": "第2問:104",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2622
+        },
+        {
+          "key": "第2問:105",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6514
+        },
+        {
+          "key": "第2問:106",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5
+        },
+        {
+          "key": "第2問:107",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6792
+        },
+        {
+          "key": "第2問:108",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4746
+        },
+        {
+          "key": "第2問:109",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5927
+        },
+        {
+          "key": "第3問:110",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6927
+        },
+        {
+          "key": "第3問:111",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5
+        },
+        {
+          "key": "第3問:112",
+          "predicted": "0",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3815
+        },
+        {
+          "key": "第3問:113",
+          "predicted": "1",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5622
+        },
+        {
+          "key": "第3問:114",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4294
+        },
+        {
+          "key": "第3問:115",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.2937
+        }
+      ]
+    },
+    {
+      "id": "kagaku-kiso",
+      "name": "化学基礎",
+      "score": 9,
+      "maxScore": 50,
+      "accuracy": 18.0,
+      "correct": 4,
+      "total": 19,
+      "elapsedMs": 222034.4,
+      "items": [
+        {
+          "key": "第2問:111",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.2918
+        },
+        {
+          "key": "第2問:112",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5923
+        },
+        {
+          "key": "第2問:113",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.3099
+        },
+        {
+          "key": "第2問:114",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5408
+        },
+        {
+          "key": "第2問:115",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4115
+        },
+        {
+          "key": "第2問:116",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2786
+        },
+        {
+          "key": "第2問:117",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2972
+        },
+        {
+          "key": "第2問:118",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 0,
+          "probability": 0.283
+        },
+        {
+          "key": "第2問:119",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2536
+        },
+        {
+          "key": "第1問:101",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3984
+        },
+        {
+          "key": "第1問:102",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4298
+        },
+        {
+          "key": "第1問:103",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5243
+        },
+        {
+          "key": "第1問:104",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9113
+        },
+        {
+          "key": "第1問:105",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2341
+        },
+        {
+          "key": "第1問:106",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.417
+        },
+        {
+          "key": "第1問:107",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.359
+        },
+        {
+          "key": "第1問:108",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7311
+        },
+        {
+          "key": "第1問:109",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2755
+        },
+        {
+          "key": "第1問:110",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2398
+        }
+      ]
+    },
+    {
+      "id": "seibutsu-kiso",
+      "name": "生物基礎",
+      "score": 15,
+      "maxScore": 50,
+      "accuracy": 30.0,
+      "correct": 5,
+      "total": 17,
+      "elapsedMs": 185247.7,
+      "items": [
+        {
+          "key": "第1問:101",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.8764
+        },
+        {
+          "key": "第1問:102",
+          "predicted": "4",
+          "gold": [
+            "7"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2593
+        },
+        {
+          "key": "第1問:103",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.3827
+        },
+        {
+          "key": "第1問:104",
+          "predicted": "1",
+          "gold": [
+            "2",
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5463
+        },
+        {
+          "key": "第1問:105",
+          "predicted": "2",
+          "gold": [
+            "2",
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.7943
+        },
+        {
+          "key": "第2問:106",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2951
+        },
+        {
+          "key": "第2問:107",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9487
+        },
+        {
+          "key": "第2問:108",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5312
+        },
+        {
+          "key": "第2問:109",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9816
+        },
+        {
+          "key": "第2問:110",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9759
+        },
+        {
+          "key": "第2問:111",
+          "predicted": "4",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7773
+        },
+        {
+          "key": "第2問:112",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2631
+        },
+        {
+          "key": "第3問:113",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9936
+        },
+        {
+          "key": "第3問:114",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5
+        },
+        {
+          "key": "第3問:115",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5567
+        },
+        {
+          "key": "第3問:116",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4712
+        },
+        {
+          "key": "第3問:117",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7398
+        }
+      ]
+    },
+    {
+      "id": "chigaku-kiso",
+      "name": "地学基礎",
+      "score": 19,
+      "maxScore": 50,
+      "accuracy": 38.0,
+      "correct": 6,
+      "total": 15,
+      "elapsedMs": 132966.2,
+      "items": [
+        {
+          "key": "第1問:101",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4748
+        },
+        {
+          "key": "第1問:102",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6981
+        },
+        {
+          "key": "第1問:103",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2845
+        },
+        {
+          "key": "第1問:104",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4294
+        },
+        {
+          "key": "第2問:105",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.3058
+        },
+        {
+          "key": "第2問:106",
+          "predicted": "6",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3164
+        },
+        {
+          "key": "第2問:107",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4762
+        },
+        {
+          "key": "第2問:108",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4615
+        },
+        {
+          "key": "第2問:109",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.9401
+        },
+        {
+          "key": "第3問:110",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5424
+        },
+        {
+          "key": "第3問:111",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9726
+        },
+        {
+          "key": "第4問:112",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3818
+        },
+        {
+          "key": "第4問:113",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6197
+        },
+        {
+          "key": "第4問:114",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4828
+        },
+        {
+          "key": "第4問:115",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4225
+        }
+      ]
+    },
+    {
+      "id": "butsuri",
+      "name": "物理",
+      "score": 13,
+      "maxScore": 100,
+      "accuracy": 13.0,
+      "correct": 3,
+      "total": 24,
+      "elapsedMs": 597180.6,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.4295
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "2",
+          "gold": [
+            "9"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.3844
+        },
+        {
+          "key": "第1問:3",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.5999
+        },
+        {
+          "key": "第1問:4",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.4174
+        },
+        {
+          "key": "第2問:5",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.256
+        },
+        {
+          "key": "第2問:6",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.5
+        },
+        {
+          "key": "第2問:7",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 5,
+          "probability": 0.7212
+        },
+        {
+          "key": "第2問:8",
+          "predicted": "4",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.285
+        },
+        {
+          "key": "第2問:9",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.2394
+        },
+        {
+          "key": "第2問:10",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 5,
+          "probability": 0.2764
+        },
+        {
+          "key": "第3問:11",
+          "predicted": "1",
+          "gold": [
+            "8"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.5312
+        },
+        {
+          "key": "第3問:12",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2643
+        },
+        {
+          "key": "第3問:13",
+          "predicted": "1",
+          "gold": [
+            "8"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2858
+        },
+        {
+          "key": "第3問:14",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3373
+        },
+        {
+          "key": "第3問:15",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2432
+        },
+        {
+          "key": "第3問:16",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2273
+        },
+        {
+          "key": "第4問:17",
+          "predicted": "3",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.9455
+        },
+        {
+          "key": "第4問:18",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.39
+        },
+        {
+          "key": "第4問:19",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2041
+        },
+        {
+          "key": "第4問:20",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3661
+        },
+        {
+          "key": "第4問:21",
+          "predicted": "2",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2434
+        },
+        {
+          "key": "第4問:22",
+          "predicted": "1",
+          "gold": [
+            "7"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.9149
+        },
+        {
+          "key": "第4問:23",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2829
+        },
+        {
+          "key": "第4問:24",
+          "predicted": "6",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5622
+        }
+      ]
+    },
+    {
+      "id": "kagaku",
+      "name": "化学",
+      "score": 13,
+      "maxScore": 100,
+      "accuracy": 13.0,
+      "correct": 4,
+      "total": 40,
+      "elapsedMs": 63083.6,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6225
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3318
+        },
+        {
+          "key": "第1問:3",
+          "predicted": "3",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5492
+        },
+        {
+          "key": "第1問:4",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.3998
+        },
+        {
+          "key": "第1問:5",
+          "predicted": "5",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6134
+        },
+        {
+          "key": "第2問:6",
+          "predicted": "0",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.7538
+        },
+        {
+          "key": "第2問:7",
+          "predicted": "2",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4482
+        },
+        {
+          "key": "第2問:8",
+          "predicted": "0",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7488
+        },
+        {
+          "key": "第2問:9",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5002
+        },
+        {
+          "key": "第2問:10",
+          "predicted": "0",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6505
+        },
+        {
+          "key": "第2問:11",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.7881
+        },
+        {
+          "key": "第2問:12",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7011
+        },
+        {
+          "key": "第3問:13",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3031
+        },
+        {
+          "key": "第3問:14",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7914
+        },
+        {
+          "key": "第3問:15",
+          "predicted": "0",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7808
+        },
+        {
+          "key": "第3問:16",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7819
+        },
+        {
+          "key": "第3問:17",
+          "predicted": "0",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.8032
+        },
+        {
+          "key": "第3問:18",
+          "predicted": "0",
+          "gold": [
+            "8"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.771
+        },
+        {
+          "key": "第3問:19",
+          "predicted": "0",
+          "gold": [
+            "0"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.7485
+        },
+        {
+          "key": "第3問:20",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.6844
+        },
+        {
+          "key": "第4問:21",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.2835
+        },
+        {
+          "key": "第4問:22",
+          "predicted": "0",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.8747
+        },
+        {
+          "key": "第4問:23",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.3603
+        },
+        {
+          "key": "第4問:24",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4657
+        },
+        {
+          "key": "第4問:25",
+          "predicted": "0",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 1,
+          "probability": 0.864
+        },
+        {
+          "key": "第4問:26",
+          "predicted": "0",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 1,
+          "probability": 0.8473
+        },
+        {
+          "key": "第4問:27",
+          "predicted": "0",
+          "gold": [
+            "9"
+          ],
+          "correct": false,
+          "points": 1,
+          "probability": 0.8587
+        },
+        {
+          "key": "第5問:28",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.7645
+        },
+        {
+          "key": "第5問:29",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.8859
+        },
+        {
+          "key": "第5問:30",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.8291
+        },
+        {
+          "key": "第5問:31",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.8355
+        },
+        {
+          "key": "第5問:32",
+          "predicted": "0",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.8186
+        },
+        {
+          "key": "第5問:33",
+          "predicted": "0",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.8305
+        },
+        {
+          "key": "第6問:34",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6932
+        },
+        {
+          "key": "第6問:35",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7054
+        },
+        {
+          "key": "第6問:36",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.6785
+        },
+        {
+          "key": "第6問:37",
+          "predicted": "0",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.705
+        },
+        {
+          "key": "第6問:38",
+          "predicted": "0",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6516
+        },
+        {
+          "key": "第6問:39",
+          "predicted": "0",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.6384
+        },
+        {
+          "key": "第6問:40",
+          "predicted": "0",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5645
+        }
+      ]
+    },
+    {
+      "id": "seibutsu",
+      "name": "生物",
+      "score": 29,
+      "maxScore": 100,
+      "accuracy": 29.0,
+      "correct": 8,
+      "total": 25,
+      "elapsedMs": 276667.1,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.7982
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4693
+        },
+        {
+          "key": "第1問:3",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6792
+        },
+        {
+          "key": "第1問:4",
+          "predicted": "4",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.332
+        },
+        {
+          "key": "第2問:5",
+          "predicted": "5",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3154
+        },
+        {
+          "key": "第2問:6",
+          "predicted": "6",
+          "gold": [
+            "1",
+            "6"
+          ],
+          "correct": true,
+          "points": 6,
+          "probability": 0.2375
+        },
+        {
+          "key": "第2問:7",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "6"
+          ],
+          "correct": true,
+          "points": 6,
+          "probability": 0.343
+        },
+        {
+          "key": "第2問:8",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3666
+        },
+        {
+          "key": "第2問:9",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.1793
+        },
+        {
+          "key": "第2問:10",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.7173
+        },
+        {
+          "key": "第3問:11",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.99
+        },
+        {
+          "key": "第3問:12",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5
+        },
+        {
+          "key": "第3問:13",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4269
+        },
+        {
+          "key": "第3問:14",
+          "predicted": "1",
+          "gold": [
+            "2",
+            "6"
+          ],
+          "correct": false,
+          "points": 8,
+          "probability": 0.3195
+        },
+        {
+          "key": "第3問:15",
+          "predicted": "1",
+          "gold": [
+            "2",
+            "6"
+          ],
+          "correct": false,
+          "points": 8,
+          "probability": 0.2361
+        },
+        {
+          "key": "第4問:16",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.7549
+        },
+        {
+          "key": "第4問:17",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.3039
+        },
+        {
+          "key": "第4問:18",
+          "predicted": "5",
+          "gold": [
+            "1",
+            "4"
+          ],
+          "correct": false,
+          "points": 8,
+          "probability": 0.1768
+        },
+        {
+          "key": "第4問:19",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "4"
+          ],
+          "correct": false,
+          "points": 8,
+          "probability": 0.1852
+        },
+        {
+          "key": "第5問:20",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.7432
+        },
+        {
+          "key": "第5問:21",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.5423
+        },
+        {
+          "key": "第5問:22",
+          "predicted": "2",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.364
+        },
+        {
+          "key": "第5問:23",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 5,
+          "probability": 0.2588
+        },
+        {
+          "key": "第5問:24",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.2281
+        },
+        {
+          "key": "第5問:25",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.179
+        }
+      ]
+    },
+    {
+      "id": "chigaku",
+      "name": "地学",
+      "score": 37,
+      "maxScore": 100,
+      "accuracy": 37.0,
+      "correct": 10,
+      "total": 27,
+      "elapsedMs": 345230.2,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4258
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.49
+        },
+        {
+          "key": "第1問:3",
+          "predicted": "3",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4045
+        },
+        {
+          "key": "第1問:4",
+          "predicted": "3",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2955
+        },
+        {
+          "key": "第2問:5",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.2115
+        },
+        {
+          "key": "第2問:6",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4577
+        },
+        {
+          "key": "第2問:7",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5571
+        },
+        {
+          "key": "第2問:8",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.5878
+        },
+        {
+          "key": "第2問:9",
+          "predicted": "4",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.6248
+        },
+        {
+          "key": "第3問:10",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.7508
+        },
+        {
+          "key": "第3問:11",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.8213
+        },
+        {
+          "key": "第3問:12",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3373
+        },
+        {
+          "key": "第3問:13",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.516
+        },
+        {
+          "key": "第3問:14",
+          "predicted": "4",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4882
+        },
+        {
+          "key": "第3問:15",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.3569
+        },
+        {
+          "key": "第3問:16",
+          "predicted": "2",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3499
+        },
+        {
+          "key": "第4問:17",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3271
+        },
+        {
+          "key": "第4問:18",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4006
+        },
+        {
+          "key": "第4問:19",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2673
+        },
+        {
+          "key": "第4問:20",
+          "predicted": "2",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4679
+        },
+        {
+          "key": "第4問:21",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.8695
+        },
+        {
+          "key": "第5問:22",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4043
+        },
+        {
+          "key": "第5問:23",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5033
+        },
+        {
+          "key": "第5問:24",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4794
+        },
+        {
+          "key": "第5問:25",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.2482
+        },
+        {
+          "key": "第5問:26",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.6845
+        },
+        {
+          "key": "第5問:27",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3248
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "name": "英語（リーディング）",
+      "score": 57,
+      "maxScore": 100,
+      "accuracy": 57.0,
+      "correct": 23,
+      "total": 44,
+      "elapsedMs": 371516.1,
+      "items": [
+        {
+          "key": "第1問:1",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 2,
+          "probability": 0.9803
+        },
+        {
+          "key": "第1問:2",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 2,
+          "probability": 0.9635
+        },
+        {
+          "key": "第2問:3",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 2,
+          "probability": 0.4007
+        },
+        {
+          "key": "第2問:4",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9849
+        },
+        {
+          "key": "第2問:5",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9957
+        },
+        {
+          "key": "第2問:6",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.8385
+        },
+        {
+          "key": "第2問:7",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9901
+        },
+        {
+          "key": "第3問:8",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9266
+        },
+        {
+          "key": "第3問:9",
+          "predicted": "3",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.2284
+        },
+        {
+          "key": "第3問:10",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.2561
+        },
+        {
+          "key": "第3問:11",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.2288
+        },
+        {
+          "key": "第3問:12",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 0,
+          "probability": 0.3275
+        },
+        {
+          "key": "第4問:13",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9842
+        },
+        {
+          "key": "第4問:14",
+          "predicted": "2",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5303
+        },
+        {
+          "key": "第4問:15",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9812
+        },
+        {
+          "key": "第4問:16",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.6581
+        },
+        {
+          "key": "第4問:17",
+          "predicted": "3",
+          "gold": [
+            "3"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9914
+        },
+        {
+          "key": "第5問:18",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9353
+        },
+        {
+          "key": "第5問:19",
+          "predicted": "2",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.46
+        },
+        {
+          "key": "第5問:20",
+          "predicted": "6",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.4787
+        },
+        {
+          "key": "第5問:21",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9265
+        },
+        {
+          "key": "第5問:22",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2313
+        },
+        {
+          "key": "第5問:23",
+          "predicted": "5",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5122
+        },
+        {
+          "key": "第6問:24",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.5871
+        },
+        {
+          "key": "第6問:25",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 0,
+          "probability": 0.2374
+        },
+        {
+          "key": "第6問:26",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4928
+        },
+        {
+          "key": "第6問:27",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 0,
+          "probability": 0.4541
+        },
+        {
+          "key": "第6問:28",
+          "predicted": "3",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7071
+        },
+        {
+          "key": "第6問:29",
+          "predicted": "2",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.6331
+        },
+        {
+          "key": "第7問:30",
+          "predicted": "4",
+          "gold": [
+            "3",
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.7944
+        },
+        {
+          "key": "第7問:31",
+          "predicted": "4",
+          "gold": [
+            "3",
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3859
+        },
+        {
+          "key": "第7問:32",
+          "predicted": "4",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4931
+        },
+        {
+          "key": "第7問:33",
+          "predicted": "2",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3941
+        },
+        {
+          "key": "第7問:34",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4411
+        },
+        {
+          "key": "第7問:35",
+          "predicted": "2",
+          "gold": [
+            "1",
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.2646
+        },
+        {
+          "key": "第7問:36",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9627
+        },
+        {
+          "key": "第8問:37",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9549
+        },
+        {
+          "key": "第8問:38",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9517
+        },
+        {
+          "key": "第8問:39",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.8548
+        },
+        {
+          "key": "第8問:40",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3546
+        },
+        {
+          "key": "第8問:41",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "4"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.3859
+        },
+        {
+          "key": "第8問:42",
+          "predicted": "2",
+          "gold": [
+            "2"
+          ],
+          "correct": true,
+          "points": 0,
+          "probability": 0.317
+        },
+        {
+          "key": "第8問:43",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.9215
+        },
+        {
+          "key": "第8問:44",
+          "predicted": "4",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.9408
+        }
+      ]
+    },
+    {
+      "id": "joho",
+      "name": "情報Ⅰ",
+      "score": 16,
+      "maxScore": 100,
+      "accuracy": 16.0,
+      "correct": 7,
+      "total": 51,
+      "elapsedMs": 829756.9,
+      "items": [
+        {
+          "key": "第1問:ア",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.9672
+        },
+        {
+          "key": "第1問:イ",
+          "predicted": "3",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.8631
+        },
+        {
+          "key": "第1問:ウ",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "2",
+            "8"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.294
+        },
+        {
+          "key": "第1問:エ",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "2",
+            "8"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2845
+        },
+        {
+          "key": "第1問:オ",
+          "predicted": "2",
+          "gold": [
+            "1",
+            "2",
+            "8"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3193
+        },
+        {
+          "key": "第1問:カ",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2512
+        },
+        {
+          "key": "第1問:キ",
+          "predicted": "1",
+          "gold": [
+            "7"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.287
+        },
+        {
+          "key": "第1問:ク",
+          "predicted": "4",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4359
+        },
+        {
+          "key": "第1問:ケ",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.3239
+        },
+        {
+          "key": "第1問:コ",
+          "predicted": "1",
+          "gold": [
+            "0",
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4283
+        },
+        {
+          "key": "第1問:サ",
+          "predicted": "3",
+          "gold": [
+            "0",
+            "1"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5502
+        },
+        {
+          "key": "第2問:ア",
+          "predicted": "0",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.2773
+        },
+        {
+          "key": "第2問:イ",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "4"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.262
+        },
+        {
+          "key": "第2問:ウ",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "4"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.2181
+        },
+        {
+          "key": "第2問:エ",
+          "predicted": "1",
+          "gold": [
+            "0"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.4584
+        },
+        {
+          "key": "第2問:オ",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2792
+        },
+        {
+          "key": "第2問:カ",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.5
+        },
+        {
+          "key": "第2問:キ",
+          "predicted": "1",
+          "gold": [
+            "0"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.2152
+        },
+        {
+          "key": "第2問:ク",
+          "predicted": "1",
+          "gold": [
+            "6"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.2489
+        },
+        {
+          "key": "第2問:ケ",
+          "predicted": "5",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.6514
+        },
+        {
+          "key": "第2問:コ",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3102
+        },
+        {
+          "key": "第2問:サ",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.273
+        },
+        {
+          "key": "第2問:シ",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2726
+        },
+        {
+          "key": "第2問:ス",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "8"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.2809
+        },
+        {
+          "key": "第2問:セ",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "8"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3145
+        },
+        {
+          "key": "第2問:ソ",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.4859
+        },
+        {
+          "key": "第2問:タ",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3031
+        },
+        {
+          "key": "第3問:ア",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 1,
+          "probability": 0.3818
+        },
+        {
+          "key": "第3問:イ",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 1,
+          "probability": 0.3355
+        },
+        {
+          "key": "第3問:ウ",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.4123
+        },
+        {
+          "key": "第3問:エ",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.309
+        },
+        {
+          "key": "第3問:カ",
+          "predicted": "1",
+          "gold": [
+            "4"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.5593
+        },
+        {
+          "key": "第3問:キ",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 3,
+          "probability": 0.7773
+        },
+        {
+          "key": "第3問:ク",
+          "predicted": "1",
+          "gold": [
+            "1"
+          ],
+          "correct": true,
+          "points": 2,
+          "probability": 0.5585
+        },
+        {
+          "key": "第3問:ケ",
+          "predicted": "0",
+          "gold": [
+            "1"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.3243
+        },
+        {
+          "key": "第3問:コ",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 2,
+          "probability": 0.7058
+        },
+        {
+          "key": "第3問:サ",
+          "predicted": "0",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3577
+        },
+        {
+          "key": "第3問:オ",
+          "predicted": "1",
+          "gold": [
+            "5"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.349
+        },
+        {
+          "key": "第3問:シ",
+          "predicted": "3",
+          "gold": [
+            "0"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3758
+        },
+        {
+          "key": "第4問:ア",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "0"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.3684
+        },
+        {
+          "key": "第4問:イ",
+          "predicted": "1",
+          "gold": [
+            "3",
+            "0"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4394
+        },
+        {
+          "key": "第4問:ウ",
+          "predicted": "1",
+          "gold": [
+            "0",
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.4045
+        },
+        {
+          "key": "第4問:エ",
+          "predicted": "1",
+          "gold": [
+            "0",
+            "2"
+          ],
+          "correct": false,
+          "points": 4,
+          "probability": 0.5426
+        },
+        {
+          "key": "第4問:キ",
+          "predicted": "1",
+          "gold": [
+            "0"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.3703
+        },
+        {
+          "key": "第4問:ク",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.4016
+        },
+        {
+          "key": "第4問:オ",
+          "predicted": "1",
+          "gold": [
+            "1",
+            "3"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.4211
+        },
+        {
+          "key": "第4問:カ",
+          "predicted": "3",
+          "gold": [
+            "1",
+            "3"
+          ],
+          "correct": true,
+          "points": 4,
+          "probability": 0.3832
+        },
+        {
+          "key": "第4問:ケ",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.4496
+        },
+        {
+          "key": "第4問:コ",
+          "predicted": "1",
+          "gold": [
+            "3"
+          ],
+          "correct": false,
+          "points": 3,
+          "probability": 0.8692
+        },
+        {
+          "key": "第4問:サ",
+          "predicted": "1",
+          "gold": [
+            "2"
+          ],
+          "correct": false,
+          "points": 2,
+          "probability": 0.3575
+        },
+        {
+          "key": "第4問:シ",
+          "predicted": "4",
+          "gold": [
+            "4"
+          ],
+          "correct": true,
+          "points": 2,
+          "probability": 0.5312
         }
       ]
     }
